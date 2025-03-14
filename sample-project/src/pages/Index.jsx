@@ -9,10 +9,19 @@ import ClientsSection from '../components/ClientsSection';
 import TestimonialsSection from '../components/TestimonialsSection';
 import StatsSection from '../components/StatsSection';
 import Footer from '../components/Footer';
-import { ThemeProvider } from '../hooks/useTheme';
+import Newsletter from '../components/Newsletter';
 
 const Index = () => {
   useEffect(() => {
+    // Handle section scrolling when page loads with hash
+    const hash = window.location.hash;
+    if (hash) {
+      const element = document.querySelector(hash);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
     // Add mousemove event listener for all service-card elements to handle radial gradient effect
     const cards = document.querySelectorAll('.service-card');
     
@@ -38,21 +47,20 @@ const Index = () => {
   }, []);
 
   return (
-    <ThemeProvider>
-      <div className="flex flex-col min-h-screen">
-        <Navbar />
-        <main className="flex-grow">
-          <HeroSection />
-          <StatsSection />
-          <ServicesSection />
-          <SolutionsSection />
-          <ProductsSection />
-          <ClientsSection />
-          <TestimonialsSection />
-        </main>
-        <Footer />
-      </div>
-    </ThemeProvider>
+    <div className="flex flex-col min-h-screen">
+      <Navbar />
+      <main className="flex-grow">
+        <HeroSection />
+        <StatsSection />
+        <ServicesSection />
+        <SolutionsSection />
+        <ProductsSection />
+        <ClientsSection />
+        <TestimonialsSection />
+        <Newsletter />
+      </main>
+      <Footer />
+    </div>
   );
 };
 

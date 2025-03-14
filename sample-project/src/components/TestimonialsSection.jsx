@@ -106,10 +106,10 @@ const TestimonialsSection = () => {
   console.log(testimonials[0].author)
 
   return (
-    <section id="testimonials" className="py-24 px-4 relative overflow-hidden bg-secondary/50 dark:bg-gray-900/50">
+    <section id="testimonials" className="py-8 px-4 relative overflow-hidden bg-secondary/50 dark:bg-gray-900/50">
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 dark:from-violet-900/10 dark:to-indigo-900/10 -z-10"></div>
       <div className="container mx-auto">
-        <div className="text-center mb-16">
+        <div className="text-center mb-10">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">What Our Clients Say</h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Hear from the retailers and brands that have transformed their operations with our solutions.
