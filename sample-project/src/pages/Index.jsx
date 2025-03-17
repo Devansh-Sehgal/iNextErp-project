@@ -7,6 +7,7 @@ import ProductsSection from '../components/ProductsSection';
 import ClientsSection from '../components/ClientsSection';
 import TestimonialsSection from '../components/TestimonialsSection';
 import StatsSection from '../components/StatsSection';
+import AboutUsSection from '../components/AboutUsSection';
 import Footer from '../components/Footer';
 import Newsletter from '../components/Newsletter';
 
@@ -51,7 +52,8 @@ const Index = () => {
     );
 
     // Observe all items with animation classes
-    const animatedElements = document.querySelectorAll('.service-item, .solution-item, .product-item');
+    // const animatedElements = document.querySelectorAll('.service-item, .solution-item, .product-item');
+    const animatedElements = document.querySelectorAll('.service-item, .solution-item, .product-item, .animate-on-scroll');
     animatedElements.forEach((el) => observer.observe(el));
     
     return () => {
@@ -70,6 +72,7 @@ const Index = () => {
       <main className="flex-grow">
         <HeroSection />
         <StatsSection />
+        <AboutUsSection />
         <ServicesSection />
         <SolutionsSection />
         <ProductsSection />
