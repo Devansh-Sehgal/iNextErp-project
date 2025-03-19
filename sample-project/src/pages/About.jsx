@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import { Users, Award, Clock, Target, ChevronRight } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Link } from 'react-router-dom';
+import CTA from '../components/CTA';
 
 const About = () => {
     useEffect(() => {
@@ -31,30 +32,6 @@ const About = () => {
             animatedElements.forEach((el) => observer.unobserve(el));
         };
     }, []);
-
-    // Team members data
-    const teamMembers = [
-        {
-            name: "Sarah Johnson",
-            role: "CEO & Founder",
-            image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=776&q=80"
-        },
-        {
-            name: "Michael Chen",
-            role: "CTO",
-            image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80"
-        },
-        {
-            name: "Emily Rodriguez",
-            role: "Head of Product",
-            image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1061&q=80"
-        },
-        {
-            name: "David Kim",
-            role: "Lead Developer",
-            image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80"
-        }
-    ];
 
     // Timeline data
     const timeline = [
@@ -128,7 +105,7 @@ const About = () => {
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                            <div className="bg-muted/20 p-6 rounded-xl shadow-sm hover:shadow-md transition-all transform hover:-translate-y-1 animate-on-scroll opacity-0 transform -translate-y-10 transition-all duration-700">
+                            <div className="bg-muted/20 p-6 rounded-xl shadow-sm hover:shadow-md transition-all transform hover:-translate-y-1 animate-on-scroll opacity-0 -translate-y-10 duration-700">
                                 <div className="bg-primary/10 w-12 h-12 rounded-full flex items-center justify-center mb-4">
                                     <Users className="text-primary h-6 w-6" />
                                 </div>
@@ -136,7 +113,7 @@ const About = () => {
                                 <p className="text-muted-foreground">We prioritize our customers' needs in every decision we make and product we build.</p>
                             </div>
 
-                            <div className="bg-muted/20 p-6 rounded-xl shadow-sm hover:shadow-md transition-all transform hover:-translate-y-1 animate-on-scroll opacity-0 transform -translate-y-10 transition-all duration-700 delay-100">
+                            <div className="bg-muted/20 p-6 rounded-xl shadow-sm hover:shadow-md transition-all transform hover:-translate-y-1 animate-on-scroll opacity-0  -translate-y-10 duration-700 delay-100">
                                 <div className="bg-blue-300/10 w-12 h-12 rounded-full flex items-center justify-center mb-4">
                                     <Award className="text-blue-500 h-6 w-6" />
                                 </div>
@@ -144,7 +121,7 @@ const About = () => {
                                 <p className="text-muted-foreground">We strive for excellence in our products, services, and customer support.</p>
                             </div>
 
-                            <div className="bg-muted/20 p-6 rounded-xl shadow-sm hover:shadow-md transition-all transform hover:-translate-y-1 animate-on-scroll opacity-0 transform -translate-y-10 transition-all duration-700 delay-200">
+                            <div className="bg-muted/20 p-6 rounded-xl shadow-sm hover:shadow-md transition-all transform hover:-translate-y-1 animate-on-scroll opacity-0  -translate-y-10 duration-700 delay-200">
                                 <div className="bg-amber-300/10 w-12 h-12 rounded-full flex items-center justify-center mb-4">
                                     <Clock className="text-amber-500 h-6 w-6" />
                                 </div>
@@ -152,7 +129,7 @@ const About = () => {
                                 <p className="text-muted-foreground">We continuously evolve and adapt to the changing needs of the retail industry.</p>
                             </div>
 
-                            <div className="bg-muted/20 p-6 rounded-xl shadow-sm hover:shadow-md transition-all transform hover:-translate-y-1 animate-on-scroll opacity-0 transform -translate-y-10 transition-all duration-700 delay-300">
+                            <div className="bg-muted/20 p-6 rounded-xl shadow-sm hover:shadow-md transition-all transform hover:-translate-y-1 animate-on-scroll opacity-0 -translate-y-10 duration-700 delay-300">
                                 <div className="bg-teal-300/10 w-12 h-12 rounded-full flex items-center justify-center mb-4">
                                     <Target className="text-teal-500 h-6 w-6" />
                                 </div>
@@ -270,66 +247,8 @@ const About = () => {
                     </div>
                 </section>
 
-                {/* Team Section */}
-                <section className="py-16 bg-muted/10">
-                    <div className="container mx-auto px-4 md:px-6">
-                        <div className="text-center mb-12">
-                            <h2 className="text-3xl font-bold mb-4 animate-on-scroll opacity-0 transform -translate-y-10 transition-all duration-700">
-                                Meet Our Team
-                            </h2>
-                            <p className="text-lg text-muted-foreground max-w-3xl mx-auto animate-on-scroll opacity-0 transform -translate-y-10 transition-all duration-700 delay-100">
-                                The talented individuals behind InextERP Solutions
-                            </p>
-                        </div>
-
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                            {teamMembers.map((member, index) => (
-                                <div
-                                    key={index}
-                                    className="bg-white rounded-xl shadow-sm overflow-hidden group hover:shadow-md transition-all animate-on-scroll opacity-0 transform -translate-y-10 transition-all duration-700"
-                                    style={{ animationDelay: `${index * 0.1}s` }}
-                                >
-                                    <div className="relative overflow-hidden">
-                                        <img
-                                            src={member.image}
-                                            alt={member.name}
-                                            className="w-full h-64 object-cover object-center transition-transform duration-500 group-hover:scale-105"
-                                        />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                                    </div>
-                                    <div className="p-4 text-center">
-                                        <h3 className="text-lg font-bold">{member.name}</h3>
-                                        <p className="text-muted-foreground">{member.role}</p>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </section>
-
                 {/* CTA Section */}
-                <section className="py-16 bg-primary/5">
-                    <div className="container mx-auto px-4 md:px-6 text-center">
-                        <div className="max-w-3xl mx-auto animate-on-scroll opacity-0 transform -translate-y-10 transition-all duration-700">
-                            <h2 className="text-3xl font-bold mb-4">Ready to Transform Your Retail Operations?</h2>
-                            <p className="text-lg text-muted-foreground mb-8">
-                                Join the growing number of retailers who are optimizing their operations with InextERP Solutions.
-                            </p>
-                            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                                <Link to="/contact">
-                                    <Button size="lg" className="w-full sm:w-auto">
-                                        Contact Us
-                                    </Button>
-                                </Link>
-                                <Link to="/#services">
-                                    <Button variant="outline" size="lg" className="w-full sm:w-auto">
-                                        Explore Services
-                                    </Button>
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                <CTA />
             </main>
             <Footer />
         </div>

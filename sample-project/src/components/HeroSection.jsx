@@ -1,14 +1,27 @@
-
 import { useRef, useEffect, useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { ArrowRightIcon } from 'lucide-react';
-import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
+import { motion, AnimatePresence } from 'framer-motion';
 
-const carouselImages = [
-  "/banner 1.jpg",
-  "/banner 2.jpg",
-  "/banner 3.jpg",
-  "/banner 4.jpg"
+const carouselContent = [
+  {
+    image: "/banner1.jpg",
+    title: "Quit speculating and begin to know. Transform the way you manage your inventory.",
+    subtitle: "With smart, cloud-based inventory systems, Inexterpsolution enables retailers to increase productivity and profitability."
+  },
+  {
+    image: "/banner2.jpg",
+    title: "Optimize Your Supply Chain with Real-Time Insights",
+    subtitle: "Harness the power of AI-driven analytics to predict demand, reduce waste, and ensure your products are always in stock. Our solutions provide end-to-end visibility across your supply chain."
+  },
+  {
+    image: "/banner3.jpg",
+    title: "Empower Your Team with Data-Driven Decisions",
+    subtitle: "Equip your team with intuitive dashboards and real-time reports. From inventory tracking to sales performance, our tools turn complex data into actionable insights for smarter decision-making."
+  },
+  {
+    image: "/banner4.jpg",
+    title: "Deliver a Seamless Omnichannel Experience",
+    subtitle: "Unify your in-store and online operations with a single, integrated platform. Enhance customer satisfaction by ensuring consistent stock availability and faster order fulfillment."
+  }
 ];
 
 const HeroSection = () => {
@@ -20,10 +33,10 @@ const HeroSection = () => {
   useEffect(() => {
     setIsLoaded(true);
 
-    // Auto-rotate carousel
+
     const interval = setInterval(() => {
-      setActiveIndex(prevIndex => (prevIndex + 1) % carouselImages.length);
-    }, 5000); // Change image every 5 seconds
+      setActiveIndex(prevIndex => (prevIndex + 1) % carouselContent.length);
+    }, 5000);
 
     return () => clearInterval(interval);
   }, []);
@@ -38,7 +51,6 @@ const HeroSection = () => {
       const x = (clientX - left) / width;
       const y = (clientY - top) / height;
 
-      // Reduced animation effect (reduced from 10px to 5px)
       bgRef.current.style.transform = `translate(${x * 5 - 2.5}px, ${y * 5 - 2.5}px)`;
     };
 
@@ -58,7 +70,7 @@ const HeroSection = () => {
   return (
     <section
       ref={heroRef}
-      className="relative py-24 min-h-screen flex items-center overflow-hidden"
+      className="relative pt-24 min-h-screen flex items-center overflow-hidden"
       id="hero"
     >
       {/* Animated background elements */}
@@ -92,63 +104,61 @@ const HeroSection = () => {
 
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div className="space-y-6 animate-fade-up" style={{ animationDelay: '0.1s' }}>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-              Quit speculating and  <span className="text-primary">begin to know.</span> Transform the way you manage your inventory.
-            </h1>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-xl">
-              With smart, cloud-based inventory systems, Inexterpsolution enables retailers to increase productivity and profitability.
-            </p>
+          {/* Text Content */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeIndex}
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -50 }}
+              transition={{ duration: 0.7 }}
+              className="space-y-6"
+            >
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+                {carouselContent[activeIndex].title}
+              </h1>
+              <p className="text-lg md:text-xl text-muted-foreground max-w-xl">
+                {carouselContent[activeIndex].subtitle}
+              </p>
+            </motion.div>
+          </AnimatePresence>
 
-            <div className="flex flex-wrap gap-4 pt-4 transition-all duration-1000 delay-500" style={{
-              opacity: isLoaded ? 1 : 0,
-              transform: isLoaded ? 'translateY(0)' : 'translateY(20px)'
-            }}>
-              <Button size="lg" className="animate-pulse">
-                Get Started
-                <ArrowRightIcon className="ml-2 h-4 w-4" />
-              </Button>
-              <Button variant="outline" size="lg" className="hover:border-primary/50 hover:bg-primary/5">
-                Learn More
-              </Button>
-            </div>
-          </div>
-
-          <div className="relative animate-fade-up rounded-2xl" style={{ animationDelay: '0.3s' }}>
-            <Carousel className="w-full h-full">
-              <CarouselContent >
-                {carouselImages.map((src, index) => (
-                  <CarouselItem key={index} className={index === activeIndex ? 'block' : 'hidden'}>
-                    <div className="relative rounded-2xl shadow-xl overflow-hidden p-1 transition-transform duration-300">
-                      <img
-                        src={src}
-                        alt={`Banner ${index + 1}`}
-                        className="rounded-xl w-full h-96 object-cover relative z-10 transition-transform duration-300 hover:scale-[1.02]"
-                      />
-                    </div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-            </Carousel>
-
-            {/* Carousel dots navigation */}
-            <div className="flex justify-center mt-4 space-x-2">
-              {carouselImages.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setActiveIndex(index)}
-                  className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${index === activeIndex
-                    ? 'bg-primary w-6'
-                    : 'bg-gray-300 hover:bg-gray-400'
-                    }`}
-                  aria-label={`Go to slide ${index + 1}`}
+          {/* Image Content */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeIndex}
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -50 }}
+              transition={{ duration: 0.7 }}
+              className="relative rounded-2xl"
+            >
+              <div className="relative rounded-2xl shadow-xl overflow-hidden p-1">
+                <img
+                  src={carouselContent[activeIndex].image}
+                  alt={`Banner ${activeIndex + 1}`}
+                  className="rounded-xl w-full h-96 object-cover relative z-10 transition-transform duration-300 hover:scale-[1.02]"
                 />
-              ))}
-            </div>
+              </div>
+              <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-green-300 rounded-full blur-xl opacity-40 -z-10 animate-pulse"></div>
+              <div className="absolute -top-6 -left-6 w-32 h-32 bg-blue-200 rounded-full blur-xl opacity-40 -z-10 animate-pulse"></div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
 
-            <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-green-300 rounded-full blur-xl opacity-40 -z-10 animate-pulse"></div>
-            <div className="absolute -top-6 -left-6 w-32 h-32 bg-blue-200 rounded-full blur-xl opacity-40 -z-10 animate-pulse"></div>
-          </div>
+        {/* Carousel dots navigation */}
+        <div className="flex justify-center mt-10 space-x-2">
+          {carouselContent.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setActiveIndex(index)}
+              className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${index === activeIndex
+                ? 'bg-primary w-6'
+                : 'bg-gray-300 hover:bg-gray-400'
+                }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
         </div>
       </div>
     </section>

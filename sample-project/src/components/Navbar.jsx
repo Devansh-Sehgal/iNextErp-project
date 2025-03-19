@@ -41,11 +41,11 @@ const Navbar = () => {
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
       ? 'bg-white/80 backdrop-blur-lg shadow-md py-2'
-      : 'bg-transparent py-4'
+      : 'bg-transparent py-2'
       }`}>
       <div className="container mx-auto px-4 md:px-6 flex justify-between items-center">
         <Link to={getHref('hero')} onClick={(e) => handleNavClick(e, 'hero')} className="text-2xl font-bold text-primary">
-          <img src='/Logo.png' className='w-16 h-16' />
+          <img src='/Logo.png' className='w-14 h-14' />
         </Link>
 
         <div className="hidden md:flex items-center space-x-8">
@@ -63,11 +63,11 @@ const Navbar = () => {
             Services
           </Link>
           <Link
-            to={getHref('products')}
-            onClick={(e) => handleNavClick(e, 'products')}
+            to={getHref('blog')}
+            onClick={(e) => handleNavClick(e, 'blog')}
             className="text-foreground hover:text-primary transition-colors"
           >
-            Products
+            Blogs
           </Link>
           <Link
             to="/contact"
@@ -106,11 +106,11 @@ const Navbar = () => {
               Services
             </Link>
             <Link
-              to={getHref('products')}
-              onClick={(e) => { handleNavClick(e, 'products'); setIsMenuOpen(false); }}
-              className="text-foreground hover:text-primary transition-colors py-2"
+              to={getHref('blog')}
+              onClick={(e) => handleNavClick(e, 'blog')}
+              className="text-foreground hover:text-primary transition-colors"
             >
-              Products
+              Blogs
             </Link>
             <Link
               to="/contact"

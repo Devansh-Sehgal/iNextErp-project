@@ -35,7 +35,7 @@ const StatCounter = ({ value, label, suffix }) => {
     const end = parseInt(value.toString().replace(/,/g, ''));
     const duration = 2000;
     const increment = end / (duration / 16);
-    
+
     const timer = setInterval(() => {
       start += increment;
       setCount(Math.min(Math.floor(start), end));
@@ -70,15 +70,15 @@ const StatsSection = () => {
   ];
 
   return (
-    <section className="py-16 bg-gradient-to-r from-primary/5 to-primary/10">
+    <section className="py-6 mt-10 bg-gradient-to-r from-primary/5 to-primary/10">
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {stats.map((stat, index) => (
-            <StatCounter 
-              key={index} 
-              value={stat.value} 
-              label={stat.label} 
-              suffix={stat.suffix} 
+            <StatCounter
+              key={index}
+              value={stat.value}
+              label={stat.label}
+              suffix={stat.suffix}
             />
           ))}
         </div>
