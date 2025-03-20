@@ -15,12 +15,29 @@ const CTA = () => {
       };
 
 
-      const handleNavClick = (e, sectionId) => {
+    //   const handleNavClick = (e, sectionId) => {
+    //     if (location.pathname === '/') {
+    //       e.preventDefault();
+    //       const element = document.getElementById(sectionId);
+    //       if (element) {
+    //         element.scrollIntoView({ behavior: 'smooth' });
+    //       }
+    //     }
+    //   };
+
+    const handleNavClick = (e, sectionId, offset = 20) => {
         if (location.pathname === '/') {
           e.preventDefault();
           const element = document.getElementById(sectionId);
           if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
+            // Get the position of the element relative to the viewport
+            const elementPosition = element.getBoundingClientRect().top;
+            
+            // Scroll to the position, subtracting the offset value
+            window.scrollTo({
+              top: window.pageYOffset + elementPosition - 50,
+              behavior: 'smooth',
+            });
           }
         }
       };
