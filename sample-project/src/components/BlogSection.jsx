@@ -3,6 +3,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Clock, Calendar, User } from "lucide-react";
+import { Link } from "react-router-dom";
+import BlogCard from "@/components/BlogCard";
 
 const blogPosts = [
     {
@@ -120,17 +122,20 @@ const BlogSection = () => {
                                 Insights, trends, and expert advice to help you optimize your inventory management
                             </p>
                         </div>
-                        <Button variant="outline" className="hidden md:flex items-center gap-2 group">
-                            View all articles
-                            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                        <Button variant="outline" className="hidden md:flex items-center gap-2 group" asChild>
+                            <Link to="/blog">
+                                View all articles
+                                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                            </Link>
                         </Button>
                     </div>
 
                     <div>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {blogPosts.map((post, index) => (
-                                <Card
+                                <BlogCard
                                     key={post.id}
+                                    post={post}
                                     data-card-id={post.id}
                                     className="blog-item overflow-hidden border border-border/40 shadow-md hover:shadow-lg transition-all duration-300"
                                     style={{
@@ -139,51 +144,17 @@ const BlogSection = () => {
                                         transition: 'all 0.5s ease-out',
                                         animationDelay: `${index * 150}ms`
                                     }}
-                                >
-                                    <div className="relative h-48 overflow-hidden">
-                                        <img
-                                            src={post.image}
-                                            alt={post.title}
-                                            className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
-                                        />
-                                        <div className="absolute top-3 right-3 bg-primary/90 text-primary-foreground rounded-full px-3 py-1 text-xs font-medium">
-                                            {post.categories[0]}
-                                        </div>
-                                    </div>
-                                    <CardHeader className="p-4 pb-2">
-                                        <CardTitle className="text-xl font-bold line-clamp-2">{post.title}</CardTitle>
-                                        <div className="flex items-center gap-3 text-xs text-muted-foreground mt-2">
-                                            <div className="flex items-center gap-1">
-                                                <Calendar size={12} />
-                                                <span>{post.date}</span>
-                                            </div>
-                                            <div className="flex items-center gap-1">
-                                                <Clock size={12} />
-                                                <span>{post.readTime}</span>
-                                            </div>
-                                        </div>
-                                    </CardHeader>
-                                    <CardContent className="p-4 pt-2">
-                                        <CardDescription className="line-clamp-3">{post.excerpt}</CardDescription>
-                                    </CardContent>
-                                    <CardFooter className="p-4 border-t border-border/50 flex items-center justify-between">
-                                        <div className="flex items-center gap-2">
-                                            <User size={14} />
-                                            <span className="text-xs">{post.author}</span>
-                                        </div>
-                                        <Button variant="ghost" size="sm" className="text-primary hover:text-primary/80 p-0">
-                                            Read more
-                                        </Button>
-                                    </CardFooter>
-                                </Card>
+                                />
                             ))}
                         </div>
                     </div>
 
                     <div className="mt-10 flex justify-center md:hidden">
-                        <Button className="w-full sm:w-auto flex items-center justify-center gap-2 group">
-                            View all articles
-                            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                        <Button className="w-full sm:w-auto flex items-center justify-center gap-2 group" asChild>
+                            <Link to="/blog">
+                                View all articles
+                                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                            </Link>
                         </Button>
                     </div>
                 </div>

@@ -5,25 +5,12 @@ import { Button } from "@/components/ui/button";
 import { ArrowRightIcon, Sparkles, Zap } from 'lucide-react';
 
 const CTA = () => {
-
-
     const getHref = (sectionId) => {
         if (location.pathname !== '/') {
           return `/#${sectionId}`;
         }
         return `#${sectionId}`;
       };
-
-
-    //   const handleNavClick = (e, sectionId) => {
-    //     if (location.pathname === '/') {
-    //       e.preventDefault();
-    //       const element = document.getElementById(sectionId);
-    //       if (element) {
-    //         element.scrollIntoView({ behavior: 'smooth' });
-    //       }
-    //     }
-    //   };
 
     const handleNavClick = (e, sectionId, offset = 20) => {
         if (location.pathname === '/') {
@@ -41,7 +28,6 @@ const CTA = () => {
           }
         }
       };
-
 
     return (
         <section className="py-10 relative overflow-hidden">
@@ -61,12 +47,8 @@ const CTA = () => {
                     </div>
 
                     <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-                        Ready to Transform Your Retail Operations?
+                        Get a free consultation today.
                     </h2>
-
-                    <p className="text-lg text-muted-foreground mb-8 text-center max-w-2xl mx-auto">
-                        Join the growing number of retailers who are optimizing their operations with InextERP Solutions. Start your journey to better inventory management today.
-                    </p>
 
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                         <Link to="/contact">
@@ -76,7 +58,7 @@ const CTA = () => {
                             </Button>
                         </Link>
                         <Link to={getHref('services')} onClick={(e) => handleNavClick(e, 'services')}>
-                            <Button variant="outline" size="lg" className="w-full sm:w-auto group">
+                            <Button variant="outline" size="lg" className="w-full sm:w-auto group bg-white dark:bg-gray-800 text-gray-800 dark:text-white border-gray-200">
                                 Explore Services
                                 <Zap className="ml-1 w-4 h-4 group-hover:scale-110 transition-transform" />
                             </Button>
