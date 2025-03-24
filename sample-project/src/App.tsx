@@ -7,13 +7,15 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Index from "./pages/Index";
 import Contact from "./pages/Contact.jsx";
-import NotFound from "./pages/NotFound";
+import NotFound from "./pages/NotFound.js";
 import About from "./pages/About.jsx";
 import Blog from "./pages/Blog.jsx";
 import LoadingAnimation from "./components/LoadingAnimation";
 import WhatsAppButton from "./components/WhatsAppButton";
 import ContactPopup from "./components/ContactPopup";
 import BlogDetail from "./pages/BlogDetail";
+import TermsConditions from './pages/TermsConditions';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 
 // Use lazy loading for service pages to improve performance
 const InventoryService = lazy(() => import("./pages/InventoryService.jsx"));
@@ -32,21 +34,21 @@ const App = () => {
     if (window.location.hash) {
       window.scrollTo(0, 0);
     }
-    
+
     // Show loading animation briefly only on main page
     if (window.location.pathname === "/") {
       setTimeout(() => setLoading(false), 1200);
     } else {
       setLoading(false);
     }
-    
+
     // Show contact popup after 5 seconds, but only on the main page
     const timer = setTimeout(() => {
       if (window.location.pathname === "/") {
         setShowContactPopup(true);
       }
     }, 5000);
-    
+
     return () => clearTimeout(timer);
   }, []);
 
@@ -68,6 +70,8 @@ const App = () => {
               <Route path="/about" element={<About />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:id" element={<BlogDetail />} />
+              <Route path="/terms" element={<TermsConditions />} />
+              <Route path="/privacy" element={<PrivacyPolicy />} />
               <Route path="/services/inventory" element={
                 <Suspense fallback={<LoadingAnimation />}>
                   <InventoryService />

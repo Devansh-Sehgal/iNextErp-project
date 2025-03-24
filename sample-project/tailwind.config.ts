@@ -53,6 +53,11 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        cornflowerBlue: {
+          DEFAULT: "#6495ed",
+          light: "#80a7f0",
+          dark: "#4a78d0",
+        },
         teal: {
           DEFAULT: "#0d9488",
           light: "#14b8a6",

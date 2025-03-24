@@ -420,7 +420,7 @@ const POSService = () => {
                 <Button size="lg" variant="secondary" className="rounded-full px-8">
                   Schedule a Demo
                 </Button>
-                <Button size="lg" variant="outline" className="text-white border-white hover:bg-white/10 rounded-full px-8">
+                <Button size="lg" variant="outline" className="text-white border-white bg-transparent hover:bg-white/10 rounded-full px-8">
                   Contact Sales
                 </Button>
               </div>
