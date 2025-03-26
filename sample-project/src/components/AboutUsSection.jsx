@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef } from 'react';
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from 'lucide-react';
@@ -51,8 +52,8 @@ const AboutUsSection = () => {
           </p>
         </div>
 
-        {/* Updated grid layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        {/* Updated grid layout with proper alignment */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           {/* Image Section (Image first on small screens) */}
           <div className="order-1 lg:order-1 animate-on-scroll opacity-0 transform translate-x-10 transition-all duration-700">
             <div className="relative">
@@ -61,6 +62,8 @@ const AboutUsSection = () => {
                   src="/aboutus1.jpg"
                   alt="Our Team"
                   className="rounded-2xl w-full object-cover shadow-lg"
+                  width="600"
+                  height="400"
                 />
               </div>
               <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-primary/30 rounded-full blur-xl -z-10"></div>
@@ -74,7 +77,7 @@ const AboutUsSection = () => {
               <h3 className="text-2xl font-bold mb-4 text-primary">Our Mission</h3>
               <p className="text-muted-foreground mb-6">
                 Businesses need a solution that provides more than just the essentials when selecting retail ERP software.
-                InextERP Solution distinguishes itself by providing a full range of capabilities at an affordable price,
+                iNextErp Solution distinguishes itself by providing a full range of capabilities at an affordable price,
                 providing retailers of all sizes with unparalleled value.
               </p>
             </div>
@@ -85,7 +88,7 @@ const AboutUsSection = () => {
                 Our retail ERP offers additional features right out of the box, like centralized data analytics,
                 streamlined supply chain processes, effective point-of-sale (POS) billing software, and seamless
                 inventory management, all of which can be customized to meet your specific business requirements.
-                Modern retail management software is available to businesses thanks to the Inext retail ERP system,
+                Modern retail management software is available to businesses thanks to the iNextErp retail ERP system,
                 which adjusts to your workflow, decreasing the need for workarounds and increasing efficiency.
               </p>
             </div>

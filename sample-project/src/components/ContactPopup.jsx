@@ -7,31 +7,90 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from 'react';
 import { useToast } from "@/components/ui/use-toast";
+import emailjs from 'emailjs-com';
 
 const ContactPopup = ({ open, onOpenChange }) => {
-  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [name, setName] = useState('');
   const [message, setMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [phoneError, setPhoneError] = useState('');
   const { toast } = useToast();
 
-  const handleSubmit = (e) => {
+  const handlePhoneChange = (e) => {
+    // Only allow numbers in the phone field
+    const value = e.target.value.replace(/[^0-9]/g, '');
+    setPhone(value);
+    
+    // Clear error if length is becoming correct
+    if (value.length === 10) {
+      setPhoneError('');
+    } else if (value.length > 0) {
+      setPhoneError('Phone number must be exactly 10 digits');
+    }
+  };
+
+  const validatePhone = () => {
+    if (phone.length !== 10) {
+      setPhoneError('Phone number must be exactly 10 digits');
+      return false;
+    }
+    setPhoneError('');
+    return true;
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Validate phone number
+    if (!validatePhone()) {
+      return;
+    }
+    
     setIsSubmitting(true);
     
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      // Format message to include name and phone
+      const formattedMessage = `Name: ${name}\nPhone Number: ${phone}\n\nMessage: ${message || "No message provided"}`;
+      
+      // Prepare the template parameters for EmailJS
+      const templateParams = {
+        from_name: name,
+        phone_number: phone,
+        message: formattedMessage,
+        to_email: "devanshsehgal51@gmail.com",
+      };
+
+      // Send email using EmailJS
+      await emailjs.send(
+        "service_kcdgjkn", // Service ID
+        "template_g4gwmo7", // Template ID
+        templateParams,
+        "F2tTKnOXIv5menGxL" // User ID (public key)
+      );
+      
+      // Show success toast
       toast({
         title: "Message Sent",
         description: "Thank you for reaching out! We'll get back to you soon.",
         variant: "success",
       });
+      
       onOpenChange(false);
-      setEmail('');
+      setPhone('');
       setName('');
       setMessage('');
-    }, 1000);
+      setPhoneError('');
+    } catch (error) {
+      console.error("Error sending message:", error);
+      toast({
+        title: "Error",
+        description: "There was a problem sending your message. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -46,7 +105,7 @@ const ContactPopup = ({ open, onOpenChange }) => {
         
         <form onSubmit={handleSubmit} className="space-y-4 py-2">
           <div className="space-y-2">
-            <Label htmlFor="name">Name</Label>
+            <Label htmlFor="name">Name <span className="text-red-500">*</span></Label>
             <Input 
               id="name" 
               placeholder="Your name" 
@@ -57,15 +116,19 @@ const ContactPopup = ({ open, onOpenChange }) => {
           </div>
           
           <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="phone">Phone Number <span className="text-red-500">*</span></Label>
             <Input 
-              id="email" 
-              type="email" 
-              placeholder="your.email@example.com" 
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              id="phone" 
+              type="tel" 
+              placeholder="Your phone number" 
+              value={phone}
+              onChange={handlePhoneChange}
               required
+              className={phoneError ? "border-red-500" : ""}
             />
+            {phoneError && (
+              <p className="text-red-500 text-sm mt-1">{phoneError}</p>
+            )}
           </div>
           
           <div className="space-y-2">
@@ -76,7 +139,6 @@ const ContactPopup = ({ open, onOpenChange }) => {
               placeholder="How can we help you?"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              required
             />
           </div>
           

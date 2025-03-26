@@ -108,7 +108,7 @@ const About = () => {
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                            <div className="bg-muted/20 p-6 rounded-xl shadow-sm hover:shadow-md transition-all transform hover:-translate-y-1 animate-on-scroll opacity-0 -translate-y-10 duration-700">
+                            <div className="bg-muted/20 p-6 rounded-xl shadow-sm hover:shadow-md transition-all transform hover:-translate-y-1 animate-on-scroll opacity-0 transform -translate-y-10 duration-700">
                                 <div className="bg-primary/10 w-12 h-12 rounded-full flex items-center justify-center mb-4">
                                     <Users className="text-primary h-6 w-6" />
                                 </div>
@@ -146,7 +146,7 @@ const About = () => {
                 {/* Our Approach Section */}
                 <section className="py-16 bg-muted/10">
                     <div className="container mx-auto px-4 md:px-6">
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
                             <div className="animate-on-scroll opacity-0 transform -translate-x-10 transition-all duration-700">
                                 <div className="relative">
                                     <div className="bg-gradient-to-tr from-primary/10 to-blue-300/20 rounded-2xl p-1">
