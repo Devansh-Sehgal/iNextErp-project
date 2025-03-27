@@ -103,8 +103,6 @@ const TestimonialsSection = () => {
   const column2 = testimonials.slice(3, 6);
   const column3 = testimonials.slice(6);
 
-  console.log(testimonials[0].author)
-
   return (
     <section id="testimonials" className="py-8 px-4 relative overflow-hidden bg-secondary/50 dark:bg-gray-900/50">
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 dark:from-violet-900/10 dark:to-indigo-900/10 -z-10"></div>

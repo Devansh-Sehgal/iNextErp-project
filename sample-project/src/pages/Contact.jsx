@@ -3,16 +3,18 @@ import { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { useNavigate } from 'react-router-dom';
-import { Mail, User, Building, MessageSquare, MapPin, Phone, Send, CheckCircle } from 'lucide-react';
+import { Mail, User, Building, MessageSquare, MapPin, Phone, Send, CheckCircle, Facebook, Instagram, Twitter, Linkedin, X } from 'lucide-react';
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
+import emailjs from 'emailjs-com';
 
 const Contact = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  
+  const [phoneError, setPhoneError] = useState('');
+
   useEffect(() => {
     // Scroll to top when contact page loads
     window.scrollTo(0, 0);
@@ -20,48 +22,106 @@ const Contact = () => {
 
   const [formData, setFormData] = useState({
     name: '',
-    email: '',
+    phone: '',
     company: '',
     message: ''
   });
 
-  const handleSubmit = (e) => {
+  const validatePhone = () => {
+    if (formData.phone.length !== 10) {
+      setPhoneError('Phone number must be exactly 10 digits');
+      return false;
+    }
+    setPhoneError('');
+    return true;
+  };
+
+  const sendForm = async (e) => {
     e.preventDefault();
-    // Handle form submission
-    setIsSubmitting(true);
     
-    // Simulate API call with timeout
-    setTimeout(() => {
-      console.log('Form submitted:', formData);
+    // Validate phone number
+    if (!validatePhone()) {
+      return;
+    }
+    
+    setIsSubmitting(true);
+
+    try {
+      // Format message to include name and phone
+      const formattedMessage = `Name: ${formData.name}\nPhone Number: ${formData.phone}\nCompany: ${formData.company || "Not provided"}\n\nMessage: ${formData.message || "No message provided"}`;
       
+      // Prepare the template parameters for EmailJS
+      const templateParams = {
+        from_name: formData.name,
+        phone_number: formData.phone,
+        message: formattedMessage,
+        to_email: "devanshsehgal51@gmail.com", // Your email
+      };
+
+      // Send email using EmailJS
+      await emailjs.send(
+        "service_kcdgjkn", // Service ID
+        "template_g4gwmo7", // Template ID
+        templateParams,
+        "F2tTKnOXIv5menGxL" // User ID (public key)
+      );
+
       setIsSubmitting(false);
       setIsSuccess(true);
-      
+
       toast({
         title: "Message sent successfully!",
         description: "We'll get back to you as soon as possible.",
       });
-      
+
       // Reset success state after 3 seconds
       setTimeout(() => {
         setIsSuccess(false);
-        
+
         // Reset form
         setFormData({
           name: '',
-          email: '',
+          phone: '',
           company: '',
           message: ''
         });
+        
+        setPhoneError('');
       }, 3000);
-    }, 1500);
+    } catch (error) {
+      console.error("Error sending message:", error);
+      toast({
+        title: "Error",
+        description: "There was a problem sending your message. Please try again.",
+        variant: "destructive",
+      });
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    const { name, value } = e.target;
+
+    // Only allow numbers for phone field
+    if (name === 'phone') {
+      const phoneValue = value.replace(/[^0-9]/g, '');
+      setFormData({
+        ...formData,
+        [name]: phoneValue
+      });
+      
+      // Clear error if length is becoming correct
+      if (phoneValue.length === 10) {
+        setPhoneError('');
+      } else if (phoneValue.length > 0) {
+        setPhoneError('Phone number must be exactly 10 digits');
+      }
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value
+      });
+    }
   };
 
   return (
@@ -97,8 +157,8 @@ const Contact = () => {
                     <div>
                       <h3 className="font-medium">Our Location</h3>
                       <p className="text-muted-foreground mt-1">
-                        123 Business Avenue, Tech District<br />
-                        San Francisco, CA 94107
+                        Arihant Ambar, D-808, Sector 1, Greater Noida West, <br />
+                        Gautam Budh Nagar-201318 (UP)
                       </p>
                     </div>
                   </div>
@@ -133,16 +193,42 @@ const Contact = () => {
                 <div className="mt-12">
                   <h3 className="font-medium mb-4">Follow Us</h3>
                   <div className="flex space-x-4">
-                    {['facebook', 'twitter', 'linkedin', 'instagram'].map((social, index) => (
-                      <a 
-                        key={index}
-                        href="#" 
-                        className="bg-white dark:bg-gray-800 h-10 w-10 rounded-full flex items-center justify-center shadow-sm hover:bg-primary hover:text-white transition-colors"
-                      >
-                        <span className="sr-only">{social}</span>
-                        <i className={`bi bi-${social}`}></i>
-                      </a>
-                    ))}
+                    <a 
+                      href="https://www.facebook.com/profile.php?id=61565418553156&mibextid=ZbWKwL" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="bg-white dark:bg-gray-800 h-10 w-10 rounded-full flex items-center justify-center shadow-sm hover:bg-primary hover:text-white transition-colors z-20"
+                    >
+                      <span className="sr-only">Facebook</span>
+                      <Facebook size={18} />
+                    </a>
+                    <a 
+                      href="https://twitter.com/inexterp" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="bg-white dark:bg-gray-800 h-10 w-10 rounded-full flex items-center justify-center shadow-sm hover:bg-primary hover:text-white transition-colors"
+                    >
+                      <span className="sr-only">Twitter</span>
+                      <X size={18} />
+                    </a>
+                    <a 
+                      href="https://linkedin.com/company/inexterp" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="bg-white dark:bg-gray-800 h-10 w-10 rounded-full flex items-center justify-center shadow-sm hover:bg-primary hover:text-white transition-colors"
+                    >
+                      <span className="sr-only">LinkedIn</span>
+                      <Linkedin size={18} />
+                    </a>
+                    <a 
+                      href="https://www.instagram.com/inexterpsolution/" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="bg-white dark:bg-gray-800 h-10 w-10 rounded-full flex items-center justify-center shadow-sm hover:bg-primary hover:text-white transition-colors"
+                    >
+                      <span className="sr-only">Instagram</span>
+                      <Instagram size={18} />
+                    </a>
                   </div>
                 </div>
               </div>
@@ -173,11 +259,11 @@ const Contact = () => {
                 
                 <h2 className="text-2xl font-semibold mb-6 relative z-10">Send Us a Message</h2>
                 
-                <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
+                <form onSubmit={sendForm} className="space-y-6 relative z-10">
                   <div className="relative">
                     <label className="flex items-center text-sm font-medium mb-2">
                       <User className="w-4 h-4 mr-2" />
-                      Your Name
+                      Your Name <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="text"
@@ -192,18 +278,21 @@ const Contact = () => {
 
                   <div className="relative">
                     <label className="flex items-center text-sm font-medium mb-2">
-                      <Mail className="w-4 h-4 mr-2" />
-                      Email Address
+                      <Phone className="w-4 h-4 mr-2" />
+                      Phone Number <span className="text-red-500">*</span>
                     </label>
                     <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-lg border bg-background focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all"
+                      className={`w-full px-4 py-3 rounded-lg border bg-background focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all ${phoneError ? "border-red-500" : ""}`}
                       required
                       disabled={isSubmitting || isSuccess}
                     />
+                    {phoneError && (
+                      <p className="text-red-500 text-sm mt-1">{phoneError}</p>
+                    )}
                   </div>
 
                   <div className="relative">
@@ -232,7 +321,6 @@ const Contact = () => {
                       onChange={handleChange}
                       rows="5"
                       className="w-full px-4 py-3 rounded-lg border bg-background focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all"
-                      required
                       disabled={isSubmitting || isSuccess}
                     />
                   </div>

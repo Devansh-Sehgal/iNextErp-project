@@ -1,50 +1,44 @@
 
+import React from 'react';
 import ClientCard from './ClientCard';
 
 const ClientsSection = () => {
-
   const clients = [
     {
-      name: "FashionForward",
-      logo: "FF",
-      description: "Leading fashion retailer with 50+ stores nationwide using our inventory solutions since 2019.",
-      industry: "Fashion Retail",
-      image: "/clients/fashion-forward.jpg"
+      name: "Mamta Saree",
+      logo: "/Clients/MamtaSaree.jpg",
+      description: "Leading fashion retailer specializing in traditional sarees and ethnic wear.",
+      industry: "Fashion Retail"
     },
     {
-      name: "Market Fresh",
-      logo: "MF",
-      description: "Regional supermarket chain that reduced waste by 35% using our forecasting tools.",
-      industry: "Supermarkets",
-      image: "/clients/market-fresh.jpg"
+      name: "Paridhan",
+      logo: "/Clients/Paridhan.jpg",
+      description: "Premium fashion brand offering a wide range of contemporary clothing options.",
+      industry: "Fashion Retail"
     },
     {
-      name: "Urban Essentials",
-      logo: "UE",
-      description: "Fast-growing D2C brand managing multiple product lines across e-commerce channels.",
-      industry: "D2C Brands",
-      image: "/clients/urban-essentials.jpg"
+      name: "Sheesh Mahal Saree Wala",
+      logo: "/Clients/SheeshMahalSareeWala.png",
+      description: "Renowned saree retailer known for exquisite designs and premium quality fabrics.",
+      industry: "Fashion Retail"
     },
     {
-      name: "StyleHub",
-      logo: "SH",
-      description: "Fashion distributor handling 200+ brands using our warehouse management solutions.",
-      industry: "Fashion Distribution",
-      image: "/clients/style-hub.jpg"
+      name: "Tanjor",
+      logo: "/Clients/Tanjor.png",
+      description: "Specialty retailer focusing on traditional South Indian ethnic wear and accessories.",
+      industry: "Fashion Retail"
     },
     {
-      name: "LuxeLifestyle",
-      logo: "LL",
-      description: "Premium lifestyle brand that improved inventory turns by 40% with our platform.",
-      industry: "Lifestyle Brands",
-      image: "/clients/luxe-lifestyle.jpg"
+      name: "UTSAV",
+      logo: "/Clients/UTSAV.png",
+      description: "Celebration wear retailer offering festive clothing and accessories for all occasions.",
+      industry: "Fashion Retail"
     },
     {
-      name: "Craft Manufacturing",
-      logo: "CM",
-      description: "Specialty manufacturer using our solutions to optimize production scheduling and materials.",
-      industry: "Manufacturing",
-      image: "/clients/craft-manufacturing.jpg"
+      name: "Neha Saree",
+      logo: "/Clients/nehasareemzf.jpg",
+      description: "Boutique saree shop with a curated collection of designer and handcrafted sarees.",
+      industry: "Fashion Retail"
     }
   ];
 
@@ -54,7 +48,7 @@ const ClientsSection = () => {
         <div className="text-center mb-16 max-w-3xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Clients</h2>
           <p className="text-lg text-muted-foreground">
-            Trusted by leading retailers and brands worldwide to transform their inventory operations.
+            Trusted by leading retailers and brands nationwide to transform their inventory operations.
           </p>
         </div>
 
@@ -65,7 +59,12 @@ const ClientsSection = () => {
               className="animate-fade-up"
               style={{ animationDelay: `${0.1 + index * 0.1}s` }}
             >
-              <ClientCard {...client} />
+              <ClientCard
+                logo={client.logo}
+                name={client.name}
+                description={client.description}
+                industry={client.industry}
+              />
             </div>
           ))}
         </div>

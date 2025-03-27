@@ -30,6 +30,11 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    // Close mobile menu when route changes
+    setIsMenuOpen(false);
+  }, [location]);
+
   const getHref = (sectionId) => {
     if (location.pathname !== '/') {
       return `/#${sectionId}`;
@@ -62,20 +67,26 @@ const Navbar = () => {
     { title: 'Analytics', href: '/services/analytics' },
   ];
 
+  // Legal pages
+  const legalPages = [
+    { title: 'Privacy Policy', href: '/privacy' },
+    { title: 'Terms & Conditions', href: '/terms' },
+  ];
+
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
       ? 'bg-white/80 backdrop-blur-lg shadow-md py-2'
       : 'bg-transparent py-2'
       }`}>
       <div className="container mx-auto px-4 md:px-6 flex justify-between items-center">
-        <Link to={getHref('hero')} onClick={(e) => handleNavClick(e, 'hero')} className="text-2xl font-bold text-primary">
+        <Link to={getHref('hero')} onClick={(e) => handleNavClick(e, 'hero')} className="text-2xl font-bold text-[#6495ed]">
           <img src='/Logo.png' className='w-14 h-14' alt="Logo" />
         </Link>
 
         <div className="hidden md:flex items-center space-x-8">
           <Link
             to="/about"
-            className="text-foreground hover:text-primary transition-colors"
+            className="text-foreground hover:text-[#6495ed] transition-colors"
           >
             About Us
           </Link>
@@ -85,7 +96,7 @@ const Navbar = () => {
             <NavigationMenuList>
               <NavigationMenuItem>
                 <NavigationMenuTrigger className="bg-transparent hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent p-0 h-auto">
-                  <span className="text-foreground hover:text-primary transition-colors">Services</span>
+                  <span className="text-foreground hover:text-[#6495ed] transition-colors">Services</span>
                 </NavigationMenuTrigger>
                 <NavigationMenuContent className="min-w-[200px]">
                   <ul className="grid gap-1 p-2">
@@ -108,13 +119,13 @@ const Navbar = () => {
           
           <Link
             to="/blog"
-            className="text-foreground hover:text-primary transition-colors"
+            className="text-foreground hover:text-[#6495ed] transition-colors"
           >
             Blog
           </Link>
           <Link
             to="/contact"
-            className="text-foreground hover:text-primary transition-colors"
+            className="text-foreground hover:text-[#6495ed] transition-colors"
           >
             Contact
           </Link>
@@ -136,7 +147,7 @@ const Navbar = () => {
           <div className="container mx-auto px-4 py-4 flex flex-col space-y-4">
             <Link
               to="/about"
-              className="text-foreground hover:text-primary transition-colors py-2"
+              className="text-foreground hover:text-[#6495ed] transition-colors py-2"
               onClick={() => setIsMenuOpen(false)}
             >
               About Us
@@ -145,7 +156,7 @@ const Navbar = () => {
             {/* Services dropdown for mobile */}
             <div className="relative">
               <button
-                className="flex items-center justify-between w-full text-left text-foreground hover:text-primary transition-colors py-2"
+                className="flex items-center justify-between w-full text-left text-foreground hover:text-[#6495ed] transition-colors py-2"
                 onClick={(e) => {
                   e.preventDefault();
                   const dropdown = e.currentTarget.nextElementSibling;
@@ -160,7 +171,7 @@ const Navbar = () => {
                   <li key={i}>
                     <Link
                       to={service.href}
-                      className="block py-1 text-foreground hover:text-primary transition-colors"
+                      className="block py-1 text-foreground hover:text-[#6495ed] transition-colors"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       {service.title}
@@ -172,18 +183,32 @@ const Navbar = () => {
             
             <Link
               to="/blog"
-              className="text-foreground hover:text-primary transition-colors py-2"
+              className="text-foreground hover:text-[#6495ed] transition-colors py-2"
               onClick={() => setIsMenuOpen(false)}
             >
               Blog
             </Link>
             <Link
               to="/contact"
-              className="text-foreground hover:text-primary transition-colors py-2"
+              className="text-foreground hover:text-[#6495ed] transition-colors py-2"
               onClick={() => setIsMenuOpen(false)}
             >
               Contact
             </Link>
+
+            {/* Legal pages for mobile */}
+            <div className="pt-2 mt-2 border-t border-gray-200">
+              {legalPages.map((page, i) => (
+                <Link
+                  key={i}
+                  to={page.href}
+                  className="block py-1 text-sm text-gray-500 hover:text-[#6495ed] transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {page.title}
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       )}
