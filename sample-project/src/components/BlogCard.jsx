@@ -55,7 +55,7 @@ const BlogCard = ({ post, isAdminMode = false, onEdit, onDelete }) => {
             alt={title}
             className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
-          {categories[0] && (
+          {categories && categories[0] && (
             <div className="absolute top-3 right-3 bg-primary/90 text-primary-foreground rounded-full px-3 py-1 text-xs font-medium">
               {categories[0]}
             </div>

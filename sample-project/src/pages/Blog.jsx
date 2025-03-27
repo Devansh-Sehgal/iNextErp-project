@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Search, Plus, X, AlertTriangle } from "lucide-react";
+import { Search, Plus, X, AlertTriangle, Loader2 } from "lucide-react";
 import BlogCard from "@/components/BlogCard";
 import {
   Dialog,
@@ -29,6 +29,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
+import { getAllBlogs, addBlog, updateBlog, deleteBlog } from "../services/firestore";
 
 const Blog = () => {
   const { toast } = useToast();
@@ -40,14 +41,16 @@ const Blog = () => {
   const [blogToDelete, setBlogToDelete] = useState(null);
   const [isEditMode, setIsEditMode] = useState(false);
   const [currentBlogId, setCurrentBlogId] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
   const [blogForm, setBlogForm] = useState({
     title: "",
     excerpt: "",
     author: "",
-    date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
     readTime: "5 min read",
     categories: ["Inventory"],
     image: "https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+    content: "",
   });
   const [blogPosts, setBlogPosts] = useState([]);
 
@@ -55,147 +58,142 @@ const Blog = () => {
     // Scroll to top when component mounts
     window.scrollTo(0, 0);
 
-    // On first load, check localStorage for saved blogs
-    const savedBlogs = localStorage.getItem('blogPosts');
-
-    // Set initial blog posts, either from storage or defaults
-    if (savedBlogs) {
-      setBlogPosts(JSON.parse(savedBlogs));
-    } else {
-      // Default blog data
-      setBlogPosts([
-        {
-          id: 1,
-          title: "The Future of Retail Inventory Management",
-          excerpt: "Explore how AI and machine learning are transforming the way retailers manage inventory across channels.",
-          author: "Jane Smith",
-          date: "May 15, 2023",
-          readTime: "5 min read",
-          categories: ["Retail", "Technology"],
-          image: "https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-        },
-        {
-          id: 2,
-          title: "10 Ways to Reduce Stock Discrepancies in Your Retail Business",
-          excerpt: "Practical strategies to minimize inventory discrepancies and improve accuracy in your retail operations.",
-          author: "Michael Chen",
-          date: "Apr 28, 2023",
-          readTime: "7 min read",
-          categories: ["Inventory", "Business"],
-          image: "https://images.unsplash.com/photo-1566576721346-d4a3b4eaeb55?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-        },
-        {
-          id: 3,
-          title: "How Omnichannel Inventory Management Increases Sales",
-          excerpt: "Discover how a unified inventory approach can boost your retail business revenue and customer satisfaction.",
-          author: "Sarah Johnson",
-          date: "Apr 10, 2023",
-          readTime: "6 min read",
-          categories: ["Inventory", "Retail"],
-          image: "https://images.unsplash.com/photo-1579621970588-a35d0e7ab9b6?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-        },
-        {
-          id: 4,
-          title: "Sustainable Inventory Practices for Modern Retailers",
-          excerpt: "How leading retailers are reducing waste and improving sustainability through better inventory management.",
-          author: "David Rodriguez",
-          date: "Mar 22, 2023",
-          readTime: "8 min read",
-          categories: ["Sustainability", "Retail"],
-          image: "https://images.unsplash.com/photo-1610018556010-6a11691bc905?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-        },
-        {
-          id: 5,
-          title: "Key Metrics Every Retailer Should Track for Inventory Health",
-          excerpt: "Essential KPIs and metrics that help retailers maintain optimal inventory levels and improve turnover.",
-          author: "Lisa Wong",
-          date: "Mar 5, 2023",
-          readTime: "6 min read",
-          categories: ["Analytics", "Business"],
-          image: "https://images.unsplash.com/photo-1543286386-713bdd548da4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-        },
-        {
-          id: 6,
-          title: "Inventory Management Software: Build vs Buy Decision Guide",
-          excerpt: "A comprehensive guide to help retailers decide whether to build custom inventory solutions or purchase existing ones.",
-          author: "Robert Taylor",
-          date: "Feb 18, 2023",
-          readTime: "9 min read",
-          categories: ["Technology", "Business"],
-          image: "https://images.unsplash.com/photo-1537432376769-00f5c2f4c8d2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-          content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-        }
-      ]);
+    // Check for admin mode in localStorage
+    const adminToken = localStorage.getItem('adminToken');
+    if (adminToken === 'admin123') {
+      setIsAdminMode(true);
     }
+
+    // Fetch blogs from Firestore
+    fetchBlogs();
   }, []);
 
-  // Save blogs to localStorage whenever they change
-  useEffect(() => {
-    if (blogPosts.length > 0) {
-      localStorage.setItem('blogPosts', JSON.stringify(blogPosts));
+  const fetchBlogs = async () => {
+    try {
+      setLoading(true);
+      const blogs = await getAllBlogs();
+      setBlogPosts(blogs);
+    } catch (error) {
+      console.error("Error fetching blogs:", error);
+      toast({
+        title: "Error",
+        description: "Failed to load blogs. Please try again later.",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
     }
-  }, [blogPosts]);
+  };
 
   // Function to add a new blog
-  const handleAddBlog = () => {
-    const newId = blogPosts.length > 0 ? Math.max(...blogPosts.map(blog => blog.id)) + 1 : 1;
-
-    const blogToAdd = {
-      ...blogForm,
-      id: newId,
-      content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    };
-
-    setBlogPosts([blogToAdd, ...blogPosts]);
-    setShowAddDialog(false);
-
-    toast({
-      title: "Success",
-      description: "Blog post has been created successfully!",
-      variant: "default",
-    });
-
-    // Reset form
-    resetBlogForm();
+  const handleAddBlog = async () => {
+    try {
+      setSubmitting(true);
+      
+      // Format categories as an array if it's a string
+      const formattedBlogData = {
+        ...blogForm,
+        categories: Array.isArray(blogForm.categories) 
+          ? blogForm.categories 
+          : [blogForm.categories],
+      };
+      
+      await addBlog(formattedBlogData);
+      
+      // Refresh the blogs list
+      await fetchBlogs();
+      
+      setShowAddDialog(false);
+      
+      toast({
+        title: "Success",
+        description: "Blog post has been created successfully!",
+        variant: "default",
+      });
+      
+      // Reset form
+      resetBlogForm();
+    } catch (error) {
+      console.error("Error adding blog:", error);
+      toast({
+        title: "Error",
+        description: "Failed to create blog post. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   // Function to update an existing blog
-  const handleUpdateBlog = () => {
-    const updatedBlogs = blogPosts.map(blog =>
-      blog.id === currentBlogId ? { ...blogForm, id: currentBlogId } : blog
-    );
-
-    setBlogPosts(updatedBlogs);
-    setShowAddDialog(false);
-    setIsEditMode(false);
-
-    toast({
-      title: "Success",
-      description: "Blog post has been updated successfully!",
-      variant: "default",
-    });
-
-    // Reset form
-    resetBlogForm();
+  const handleUpdateBlog = async () => {
+    try {
+      setSubmitting(true);
+      
+      // Format categories as an array if it's a string
+      const formattedBlogData = {
+        ...blogForm,
+        categories: Array.isArray(blogForm.categories) 
+          ? blogForm.categories 
+          : [blogForm.categories],
+      };
+      
+      await updateBlog(currentBlogId, formattedBlogData);
+      
+      // Refresh the blogs list
+      await fetchBlogs();
+      
+      setShowAddDialog(false);
+      setIsEditMode(false);
+      
+      toast({
+        title: "Success",
+        description: "Blog post has been updated successfully!",
+        variant: "default",
+      });
+      
+      // Reset form
+      resetBlogForm();
+    } catch (error) {
+      console.error("Error updating blog:", error);
+      toast({
+        title: "Error",
+        description: "Failed to update blog post. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   // Function to delete a blog
-  const handleDeleteBlog = () => {
-    const updatedBlogs = blogPosts.filter(blog => blog.id !== blogToDelete);
-    setBlogPosts(updatedBlogs);
-    setShowDeleteDialog(false);
-    setBlogToDelete(null);
-
-    toast({
-      title: "Success",
-      description: "Blog post has been deleted successfully!",
-      variant: "default",
-    });
+  const handleDeleteBlog = async () => {
+    try {
+      setSubmitting(true);
+      
+      await deleteBlog(blogToDelete);
+      
+      // Refresh the blogs list
+      await fetchBlogs();
+      
+      setShowDeleteDialog(false);
+      setBlogToDelete(null);
+      
+      toast({
+        title: "Success",
+        description: "Blog post has been deleted successfully!",
+        variant: "default",
+      });
+    } catch (error) {
+      console.error("Error deleting blog:", error);
+      toast({
+        title: "Error",
+        description: "Failed to delete blog post. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   // Reset the blog form
@@ -204,10 +202,10 @@ const Blog = () => {
       title: "",
       excerpt: "",
       author: "",
-      date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
       readTime: "5 min read",
       categories: ["Inventory"],
       image: "https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+      content: "",
     });
     setCurrentBlogId(null);
   };
@@ -220,10 +218,10 @@ const Blog = () => {
       title: blog.title,
       excerpt: blog.excerpt,
       author: blog.author,
-      date: blog.date,
       readTime: blog.readTime,
       categories: blog.categories,
       image: blog.image,
+      content: blog.content || "",
     });
     setShowAddDialog(true);
   };
@@ -234,17 +232,24 @@ const Blog = () => {
     setShowDeleteDialog(true);
   };
 
-  // Toggle admin mode with password (simple implementation)
+  // Toggle admin mode with password
   const toggleAdminMode = () => {
     const password = prompt("Enter admin password:");
-    if (password === "admin123") { // In a real app, use proper authentication
+    if (password === "admin123") {
       setIsAdminMode(!isAdminMode);
+      
+      if (!isAdminMode) {
+        localStorage.setItem('adminToken', 'admin123');
+      } else {
+        localStorage.removeItem('adminToken');
+      }
+      
       toast({
         title: isAdminMode ? "Admin Mode Disabled" : "Admin Mode Enabled",
         description: isAdminMode ? "You are now in regular mode." : "You can now add, edit, and delete blog posts.",
         variant: "default",
       });
-    } else if (password !== null) { // Only show error if user entered something (not canceled)
+    } else if (password !== null) {
       toast({
         title: "Error",
         description: "Incorrect password. Admin mode not enabled.",
@@ -255,16 +260,17 @@ const Blog = () => {
 
   // Filter blogs based on search and category
   const filteredBlogs = blogPosts.filter((blog) => {
-    const matchesSearch = blog.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      blog.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesSearch = blog.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      blog.excerpt?.toLowerCase().includes(searchQuery.toLowerCase());
 
-    const matchesCategory = selectedCategory === "All" || blog.categories.includes(selectedCategory);
+    const matchesCategory = selectedCategory === "All" || 
+      (blog.categories && blog.categories.includes(selectedCategory));
 
     return matchesSearch && matchesCategory;
   });
 
   // Get unique categories from all blogs
-  const allCategories = ["All", ...new Set(blogPosts.flatMap(blog => blog.categories))];
+  const allCategories = ["All", ...new Set(blogPosts.flatMap(blog => blog.categories || []))];
 
   // Animation variants
   const containerVariants = {
@@ -288,6 +294,21 @@ const Blog = () => {
       }
     }
   };
+
+  if (loading) {
+    return (
+      <>
+        <Navbar />
+        <main className="min-h-screen pt-24 flex justify-center items-center">
+          <div className="flex flex-col items-center">
+            <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-primary mb-4"></div>
+            <p className="text-lg text-muted-foreground">Loading blogs...</p>
+          </div>
+        </main>
+        <Footer />
+      </>
+    );
+  }
 
   return (
     <>
@@ -332,7 +353,7 @@ const Blog = () => {
                   variant="ghost"
                   size="sm"
                   onClick={toggleAdminMode}
-                  className="transition-colors duration-300 bg-primary/5 text-primary hover:bg-primary/10 hover:text-primary font-medium"
+                  className="transition-colors duration-300 hover:bg-primary/15 text-primary hover:text-primary font-medium"
                 >
                   {isAdminMode ? "Exit Admin Mode" : "Admin Mode"}
                 </Button>
@@ -426,8 +447,8 @@ const Blog = () => {
       </main>
 
       {/* Add/Edit Blog Dialog */}
-      <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
-        <DialogContent className="sm:max-w-[525px]">
+      <Dialog open={showAddDialog} onOpenChange={(open) => !submitting && setShowAddDialog(open)}>
+        <DialogContent className="sm:max-w-[525px] max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>{isEditMode ? "Edit Blog Post" : "Add New Blog Post"}</DialogTitle>
             <DialogDescription>
@@ -459,6 +480,18 @@ const Blog = () => {
                 required
               />
             </div>
+            
+            <div className="grid grid-cols-4 items-start gap-4">
+              <Label htmlFor="content" className="text-right pt-2">Content *</Label>
+              <Textarea
+                id="content"
+                value={blogForm.content}
+                onChange={(e) => setBlogForm({ ...blogForm, content: e.target.value })}
+                className="col-span-3 min-h-[200px]"
+                placeholder="Write your blog content here. Use double line breaks for new paragraphs."
+                required
+              />
+            </div>
 
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="author" className="text-right">Author *</Label>
@@ -486,7 +519,7 @@ const Blog = () => {
               <Label htmlFor="category" className="text-right">Category *</Label>
               <Input
                 id="category"
-                value={blogForm.categories[0] || ""}
+                value={Array.isArray(blogForm.categories) ? blogForm.categories[0] || "" : blogForm.categories || ""}
                 onChange={(e) => setBlogForm({ ...blogForm, categories: [e.target.value] })}
                 className="col-span-3"
                 required
@@ -507,13 +540,17 @@ const Blog = () => {
 
           <DialogFooter>
             <DialogClose asChild>
-              <Button variant="outline">Cancel</Button>
+              <Button variant="outline" disabled={submitting}>Cancel</Button>
             </DialogClose>
             <Button
               type="submit"
               onClick={isEditMode ? handleUpdateBlog : handleAddBlog}
-              disabled={!blogForm.title || !blogForm.excerpt || !blogForm.author || !blogForm.categories[0] || !blogForm.image}
+              disabled={submitting || !blogForm.title || !blogForm.excerpt || !blogForm.content || !blogForm.author || !(blogForm.categories && blogForm.categories[0]) || !blogForm.image}
+              className="relative"
             >
+              {submitting && (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              )}
               {isEditMode ? "Update Blog" : "Save Blog"}
             </Button>
           </DialogFooter>
@@ -521,7 +558,7 @@ const Blog = () => {
       </Dialog>
 
       {/* Delete Confirmation Dialog */}
-      <AlertDialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
+      <AlertDialog open={showDeleteDialog} onOpenChange={(open) => !submitting && setShowDeleteDialog(open)}>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle className="flex items-center gap-2">
@@ -533,8 +570,15 @@ const Blog = () => {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={handleDeleteBlog} className="bg-red-600 hover:bg-red-700">
+            <AlertDialogCancel disabled={submitting}>Cancel</AlertDialogCancel>
+            <AlertDialogAction 
+              onClick={handleDeleteBlog} 
+              className="bg-red-600 hover:bg-red-700 relative"
+              disabled={submitting}
+            >
+              {submitting && (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              )}
               Delete
             </AlertDialogAction>
           </AlertDialogFooter>

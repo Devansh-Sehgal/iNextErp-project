@@ -1,9 +1,9 @@
 
 import React, { useEffect, useState } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { Calendar, Clock, User, ArrowLeft, Bookmark, Share2, Edit, Trash2 } from "lucide-react";
+import { Calendar, Clock, User, ArrowLeft, Bookmark, Share2, Edit, Trash2, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { 
   Dialog, 
@@ -18,6 +18,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import { getBlogById, updateBlog, deleteBlog } from "../services/firestore";
 
 const BlogDetail = () => {
   const { id } = useParams();
@@ -28,6 +29,7 @@ const BlogDetail = () => {
   const [relatedPosts, setRelatedPosts] = useState([]);
   const [isAdminMode, setIsAdminMode] = useState(false);
   const [showEditDialog, setShowEditDialog] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [blogForm, setBlogForm] = useState({
     title: "",
     excerpt: "",
@@ -43,94 +45,123 @@ const BlogDetail = () => {
     window.scrollTo(0, 0);
     
     const checkAdminMode = () => {
-      // Simple implementation for demo purposes
+      // Check for admin mode in localStorage
       const adminToken = localStorage.getItem('adminToken');
       if (adminToken === 'admin123') {
         setIsAdminMode(true);
       }
     };
     
-    const fetchBlog = () => {
-      // Get blogs from localStorage
-      const savedBlogs = JSON.parse(localStorage.getItem('blogPosts') || '[]');
-      
-      // Find the specific blog by ID
-      const foundBlog = savedBlogs.find(blog => blog.id === parseInt(id));
-      
-      if (foundBlog) {
-        setBlog(foundBlog);
-        setBlogForm({
-          title: foundBlog.title,
-          excerpt: foundBlog.excerpt,
-          content: foundBlog.content || "",
-          author: foundBlog.author,
-          date: foundBlog.date,
-          readTime: foundBlog.readTime,
-          categories: foundBlog.categories,
-          image: foundBlog.image,
-        });
+    const fetchBlog = async () => {
+      try {
+        setLoading(true);
+        const blogData = await getBlogById(id);
         
-        // Find 2-3 related posts with the same category
-        const related = savedBlogs
-          .filter(post => 
-            post.id !== parseInt(id) && 
-            post.categories.some(cat => foundBlog.categories.includes(cat))
-          )
-          .slice(0, 3);
-        
-        setRelatedPosts(related);
-      } else {
+        if (blogData) {
+          setBlog(blogData);
+          setBlogForm({
+            title: blogData.title || "",
+            excerpt: blogData.excerpt || "",
+            content: blogData.content || "",
+            author: blogData.author || "",
+            date: blogData.date || "",
+            readTime: blogData.readTime || "",
+            categories: blogData.categories || [],
+            image: blogData.image || "",
+          });
+          
+          // For related posts logic, we would need to fetch more blogs
+          // This could be optimized in a real-world scenario with a query
+          // that fetches related blogs directly from Firestore
+          setRelatedPosts([]);
+        } else {
+          toast({
+            title: "Error",
+            description: "Blog post not found",
+            variant: "destructive",
+          });
+          // Redirect to blog listing after 2 seconds
+          setTimeout(() => navigate('/blog'), 2000);
+        }
+      } catch (error) {
+        console.error("Error fetching blog:", error);
         toast({
           title: "Error",
-          description: "Blog post not found",
+          description: "Failed to load blog. Please try again later.",
           variant: "destructive",
         });
-        // Redirect to blog listing after 2 seconds if blog not found
         setTimeout(() => navigate('/blog'), 2000);
+      } finally {
+        setLoading(false);
       }
-      
-      setLoading(false);
     };
     
     fetchBlog();
     checkAdminMode();
   }, [id, navigate, toast]);
 
-  const handleUpdateBlog = () => {
-    const savedBlogs = JSON.parse(localStorage.getItem('blogPosts') || '[]');
-    const updatedBlogs = savedBlogs.map(post => 
-      post.id === parseInt(id) ? { ...post, ...blogForm } : post
-    );
-    
-    localStorage.setItem('blogPosts', JSON.stringify(updatedBlogs));
-    setBlog({ ...blog, ...blogForm });
-    setShowEditDialog(false);
-    
-    toast({
-      title: "Success",
-      description: "Blog post has been updated successfully!",
-      variant: "default",
-    });
-  };
-
-  const handleDeleteBlog = () => {
-    if (window.confirm("Are you sure you want to delete this blog post? This action cannot be undone.")) {
-      const savedBlogs = JSON.parse(localStorage.getItem('blogPosts') || '[]');
-      const filteredBlogs = savedBlogs.filter(post => post.id !== parseInt(id));
+  const handleUpdateBlog = async () => {
+    try {
+      setSubmitting(true);
       
-      localStorage.setItem('blogPosts', JSON.stringify(filteredBlogs));
+      // Format categories as an array if it's a string
+      const formattedBlogData = {
+        ...blogForm,
+        categories: Array.isArray(blogForm.categories) 
+          ? blogForm.categories 
+          : [blogForm.categories],
+      };
+      
+      await updateBlog(id, formattedBlogData);
+      
+      // Update the local blog state
+      setBlog({ ...blog, ...formattedBlogData });
+      setShowEditDialog(false);
       
       toast({
         title: "Success",
-        description: "Blog post has been deleted successfully!",
+        description: "Blog post has been updated successfully!",
         variant: "default",
       });
-      
-      navigate('/blog');
+    } catch (error) {
+      console.error("Error updating blog:", error);
+      toast({
+        title: "Error",
+        description: "Failed to update blog post. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setSubmitting(false);
     }
   };
 
-  // Toggle admin mode with password (simple implementation)
+  const handleDeleteBlog = async () => {
+    if (window.confirm("Are you sure you want to delete this blog post? This action cannot be undone.")) {
+      try {
+        setSubmitting(true);
+        
+        await deleteBlog(id);
+        
+        toast({
+          title: "Success",
+          description: "Blog post has been deleted successfully!",
+          variant: "default",
+        });
+        
+        navigate('/blog');
+      } catch (error) {
+        console.error("Error deleting blog:", error);
+        toast({
+          title: "Error",
+          description: "Failed to delete blog post. Please try again.",
+          variant: "destructive",
+        });
+        setSubmitting(false);
+      }
+    }
+  };
+
+  // Toggle admin mode with password
   const toggleAdminMode = () => {
     const password = prompt("Enter admin password:");
     if (password === "admin123") {
@@ -160,9 +191,9 @@ const BlogDetail = () => {
       <>
         <Navbar />
         <div className="min-h-screen flex justify-center items-center">
-          <div className="animate-pulse flex flex-col items-center">
-            <div className="h-8 w-64 bg-gray-200 rounded mb-4"></div>
-            <div className="h-4 w-40 bg-gray-200 rounded"></div>
+          <div className="flex flex-col items-center">
+            <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-primary mb-4"></div>
+            <p className="text-lg text-muted-foreground">Loading blog content...</p>
           </div>
         </div>
         <Footer />
@@ -194,9 +225,9 @@ const BlogDetail = () => {
       <Navbar />
       <main className="min-h-screen pt-24 pb-20">
         <div className="container mx-auto px-4">
-          {/* Admin Controls */}
-          <div className="mb-8 flex justify-between items-center">
-            {/* Back Button - Replacing Breadcrumbs */}
+          {/* Admin Controls - Improved Mobile Layout */}
+          <div className="mb-8 flex flex-wrap justify-between items-center gap-4">
+            {/* Back Button */}
             <Button 
               variant="outline" 
               onClick={() => navigate('/blog')} 
@@ -206,12 +237,12 @@ const BlogDetail = () => {
               Back to All Blogs
             </Button>
             
-            <div className="flex items-center gap-4">
+            <div className="flex flex-wrap items-center gap-3">
               <Button 
                 variant="ghost" 
                 size="sm" 
                 onClick={toggleAdminMode}
-                className="transition-colors duration-300 hover:bg-primary/10 hover:text-primary"
+                className="transition-colors duration-300 hover:bg-primary/15 hover:text-primary"
               >
                 {isAdminMode ? "Exit Admin Mode" : "Admin Mode"}
               </Button>
@@ -221,17 +252,19 @@ const BlogDetail = () => {
                   <Button 
                     onClick={() => setShowEditDialog(true)}
                     className="flex items-center gap-2 bg-blue-500 hover:bg-blue-600 transition-colors duration-300"
+                    disabled={submitting}
                   >
                     <Edit size={16} />
-                    Edit Blog
+                    <span className="hidden sm:inline">Edit Blog</span>
                   </Button>
                   <Button 
                     variant="destructive"
                     onClick={handleDeleteBlog}
                     className="flex items-center gap-2 transition-colors duration-300"
+                    disabled={submitting}
                   >
                     <Trash2 size={16} />
-                    Delete Blog
+                    <span className="hidden sm:inline">Delete</span>
                   </Button>
                 </div>
               )}
@@ -241,7 +274,7 @@ const BlogDetail = () => {
           {/* Blog Header */}
           <div className="max-w-4xl mx-auto">
             <div className="flex flex-wrap items-center gap-3 mb-4">
-              {blog.categories.map((category, index) => (
+              {blog.categories && blog.categories.map((category, index) => (
                 <span 
                   key={index}
                   className="bg-primary/10 text-primary rounded-full px-3 py-1 text-sm font-medium"
@@ -289,21 +322,15 @@ const BlogDetail = () => {
                   ))}
                 </div>
               ) : (
-                <>
-                  <p className="text-lg leading-relaxed mb-6">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
-                  
-                  <p className="text-lg leading-relaxed mb-6">Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem. Proin ut ligula vel nunc egestas porttitor. Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa. Fusce ac turpis quis ligula lacinia aliquet. Mauris ipsum.</p>
-                  
-                  <p className="text-lg leading-relaxed mb-6">Nulla metus metus, ullamcorper vel, tincidunt sed, euismod in, nibh. Quisque volutpat condimentum velit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam nec ante. Sed lacinia, urna non tincidunt mattis, tortor neque adipiscing diam, a cursus ipsum ante quis turpis. Nulla facilisi. Ut fringilla. Suspendisse potenti. Nunc feugiat mi a tellus consequat imperdiet. Vestibulum sapien. Proin quam.</p>
-                </>
+                <p className="text-lg leading-relaxed mb-6">No content available for this blog post.</p>
               )}
             </div>
             
             {/* Social Sharing */}
-            <div className="flex justify-between items-center border-t border-b border-gray-200 py-6 my-10">
+            <div className="flex flex-wrap justify-between items-center border-t border-b border-gray-200 py-6 my-10 gap-4">
               <Button variant="outline" className="flex items-center gap-2">
                 <Bookmark size={18} />
-                Save for Later
+                <span className="hidden sm:inline">Save for Later</span>
               </Button>
               
               <div className="flex items-center gap-3">
@@ -314,8 +341,8 @@ const BlogDetail = () => {
                 <Button variant="outline" size="icon" className="rounded-full" onClick={() => window.open("https://twitter.com/intent/tweet?url=" + window.location.href, "_blank")}>
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16z"></path><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"></path></svg>
                 </Button>
-                <Button variant="outline" size="icon" className="rounded-full" onClick={() => window.open("https://www.instagram.com", "_blank")}>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                <Button variant="outline" size="icon" className="rounded-full" onClick={() => window.open("https://www.linkedin.com/shareArticle?mini=true&url=" + window.location.href, "_blank")}>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
                 </Button>
                 <Button variant="outline" size="icon" className="rounded-full" onClick={() => {
                   navigator.clipboard.writeText(window.location.href);
@@ -330,41 +357,7 @@ const BlogDetail = () => {
             </div>
           </div>
           
-          {/* Related Posts */}
-          {relatedPosts.length > 0 && (
-            <div className="max-w-6xl mx-auto mt-16">
-              <h2 className="text-2xl font-bold mb-8">Related Articles</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {relatedPosts.map((post) => (
-                  <Link key={post.id} to={`/blog/${post.id}`} className="group">
-                    <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
-                      <div className="h-48 overflow-hidden">
-                        <img 
-                          src={post.image} 
-                          alt={post.title} 
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                        />
-                      </div>
-                      <div className="p-6">
-                        <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">
-                          {post.title}
-                        </h3>
-                        <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
-                          {post.excerpt}
-                        </p>
-                        <div className="flex items-center justify-between">
-                          <span className="text-xs text-muted-foreground">{post.date}</span>
-                          <span className="text-xs bg-primary/10 text-primary rounded-full px-2 py-1">
-                            {post.categories[0]}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          )}
+          {/* Related Posts (we could add this feature later) */}
           
           {/* Back to Blog Button */}
           <div className="flex justify-center mt-16">
@@ -381,7 +374,7 @@ const BlogDetail = () => {
       </main>
 
       {/* Edit Blog Dialog */}
-      <Dialog open={showEditDialog} onOpenChange={setShowEditDialog}>
+      <Dialog open={showEditDialog} onOpenChange={(open) => !submitting && setShowEditDialog(open)}>
         <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>Edit Blog Post</DialogTitle>
@@ -446,7 +439,7 @@ const BlogDetail = () => {
               <Label htmlFor="category" className="text-right">Category</Label>
               <Input 
                 id="category" 
-                value={blogForm.categories[0] || ""} 
+                value={Array.isArray(blogForm.categories) ? blogForm.categories[0] || "" : blogForm.categories || ""}
                 onChange={(e) => setBlogForm({...blogForm, categories: [e.target.value]})}
                 className="col-span-3" 
               />
@@ -465,9 +458,18 @@ const BlogDetail = () => {
           
           <DialogFooter>
             <DialogClose asChild>
-              <Button variant="outline">Cancel</Button>
+              <Button variant="outline" disabled={submitting}>Cancel</Button>
             </DialogClose>
-            <Button onClick={handleUpdateBlog}>Save Changes</Button>
+            <Button 
+              onClick={handleUpdateBlog}
+              disabled={submitting}
+              className="relative"
+            >
+              {submitting && (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              )}
+              Save Changes
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
