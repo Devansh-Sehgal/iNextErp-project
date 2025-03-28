@@ -17,6 +17,10 @@ import ContactPopup from "./components/ContactPopup";
 import BlogDetail from "./pages/BlogDetail";
 import TermsConditions from "./pages/TermsConditions";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
+import RetailProduct from "./pages/RetailProduct";
+import WarehouseProduct from "./pages/WarehouseProduct";
+import POSProduct from "./pages/POSProduct";
+import MobileProduct from "./pages/MobileProduct";
 
 // Use lazy loading for service pages to improve performance
 const InventoryService = lazy(() => import("./pages/InventoryService.jsx"));
@@ -102,6 +106,8 @@ const App = () => {
               <Route path="/blog/:id" element={<BlogDetail />} />
               <Route path="/terms" element={<TermsConditions />} />
               <Route path="/privacy" element={<PrivacyPolicy />} />
+              
+              {/* Service Routes */}
               <Route path="/services/inventory" element={
                 <Suspense fallback={<LoadingAnimation />}>
                   <InventoryService />
@@ -122,6 +128,13 @@ const App = () => {
                   <AnalyticsService />
                 </Suspense>
               } />
+              
+              {/* Product Routes */}
+              <Route path="/products/retail" element={<RetailProduct />} />
+              <Route path="/products/warehouse" element={<WarehouseProduct />} />
+              <Route path="/products/pos" element={<POSProduct />} />
+              <Route path="/products/mobile" element={<MobileProduct />} />
+              
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>

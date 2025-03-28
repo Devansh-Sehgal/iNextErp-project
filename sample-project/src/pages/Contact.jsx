@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -156,10 +155,18 @@ const Contact = () => {
                     </div>
                     <div>
                       <h3 className="font-medium">Our Location</h3>
-                      <p className="text-muted-foreground mt-1">
-                        Arihant Ambar, D-808, Sector 1, Greater Noida West, <br />
-                        Gautam Budh Nagar-201318 (UP)
-                      </p>
+                      <div className="text-muted-foreground mt-1">
+                        <p>
+                          <a 
+                            href="https://maps.google.com/?q=Electronics+City+Metro+Station+H-43+Sector+63" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="hover:text-primary transition-colors"
+                          >
+                            Near Electronics City Metro Station H-43, Sector 63
+                          </a>
+                        </p>
+                      </div>
                     </div>
                   </div>
                   
@@ -183,8 +190,7 @@ const Contact = () => {
                     <div>
                       <h3 className="font-medium">Call Us</h3>
                       <p className="text-muted-foreground mt-1">
-                        +1 (555) 123-4567<br />
-                        +1 (555) 987-6543
+                        <a href="tel:8527262031" className="hover:text-primary transition-colors">8527262031</a>
                       </p>
                     </div>
                   </div>
@@ -203,16 +209,16 @@ const Contact = () => {
                       <Facebook size={18} />
                     </a>
                     <a 
-                      href="https://twitter.com/inexterp" 
+                      href="https://x.com/InexterpS50262" 
                       target="_blank" 
                       rel="noopener noreferrer"
                       className="bg-white dark:bg-gray-800 h-10 w-10 rounded-full flex items-center justify-center shadow-sm hover:bg-primary hover:text-white transition-colors"
                     >
-                      <span className="sr-only">Twitter</span>
+                      <span className="sr-only">X</span>
                       <X size={18} />
                     </a>
                     <a 
-                      href="https://linkedin.com/company/inexterp" 
+                      href="https://www.linkedin.com/company/106386750/admin/dashboard/" 
                       target="_blank" 
                       rel="noopener noreferrer"
                       className="bg-white dark:bg-gray-800 h-10 w-10 rounded-full flex items-center justify-center shadow-sm hover:bg-primary hover:text-white transition-colors"

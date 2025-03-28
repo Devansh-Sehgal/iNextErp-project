@@ -5,8 +5,8 @@ import { MessageSquareText } from 'lucide-react';
 
 const WhatsAppButton = () => {
   const handleWhatsAppClick = () => {
-    // Replace with your actual WhatsApp number
-    const phoneNumber = '+919999999999';
+    // WhatsApp number
+    const phoneNumber = '+918527262031';
     const message = 'Hello! I found your website and I would like to know more about your services.';
     
     // Create the WhatsApp URL

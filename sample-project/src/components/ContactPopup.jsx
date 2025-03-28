@@ -99,7 +99,7 @@ const ContactPopup = ({ open, onOpenChange }) => {
         <DialogHeader>
           <DialogTitle className="text-xl font-bold">Contact Us</DialogTitle>
           <DialogDescription>
-            Have questions about our services? Let us know and we'll get back to you soon.
+            Have questions about our products or services? Let us know and we'll get back to you soon.
           </DialogDescription>
         </DialogHeader>
         

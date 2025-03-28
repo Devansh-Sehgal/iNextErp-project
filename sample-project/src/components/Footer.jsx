@@ -8,7 +8,7 @@ const Footer = () => {
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
           <div>
-            <h3 className="text-2xl font-bold mb-6">RetailSolutions</h3>
+            <h3 className="text-2xl font-bold mb-6">iNexterp</h3>
             <p className="text-white mb-6">
               Transforming retail operations with intelligent inventory solutions that drive growth and efficiency.
             </p>
@@ -16,10 +16,10 @@ const Footer = () => {
               <a href="https://www.facebook.com/profile.php?id=61565418553156&mibextid=ZbWKwL" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#6495ed] transition-colors">
                 <Facebook size={20} />
               </a>
-              <a href="https://twitter.com/inexterp" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#6495ed] transition-colors">
+              <a href="https://x.com/InexterpS50262" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#6495ed] transition-colors">
                 <X size={20} />
               </a>
-              <a href="https://linkedin.com/company/inexterp" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#6495ed] transition-colors">
+              <a href="https://www.linkedin.com/company/106386750/admin/dashboard/" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#6495ed] transition-colors">
                 <Linkedin size={20} />
               </a>
               <a href="https://www.instagram.com/inexterpsolution/" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#6495ed] transition-colors">
@@ -55,15 +55,27 @@ const Footer = () => {
             <ul className="space-y-3">
               <li className="flex items-start space-x-3">
                 <MapPin size={20} className="text-[#6495ed] mt-1 flex-shrink-0" />
-                <span className="text-white">Arihant Ambar, D-808, Sector 1, Greater Noida West, <br />Gautam Budh Nagar-201318 (UP)</span>
+                <div>
+                  <p className="text-white">
+                    <a 
+                      href="https://maps.google.com/?q=Electronics+City+Metro+Station+H-43+Sector+63" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="hover:text-[#6495ed] transition-colors"
+                    >
+                      <strong>Office:</strong><br />
+                      Near Electronics City Metro Station H-43, Sector 63
+                    </a>
+                  </p>
+                </div>
               </li>
               <li className="flex items-center space-x-3">
                 <Phone size={20} className="text-[#6495ed] flex-shrink-0" />
-                <span className="text-white">(555) 123-4567</span>
+                <a href="tel:8527262031" className="text-white hover:text-[#6495ed] transition-colors">8527262031</a>
               </li>
               <li className="flex items-center space-x-3">
                 <Mail size={20} className="text-[#6495ed] flex-shrink-0" />
-                <a href="mailto:sales@inexterpsolutions.com" className="text-white hover:text-[#6495ed] transition-colors">sales@inexterpsolutions.com</a>
+                <a href="mailto:sales@inexterpsolution.com" className="text-white hover:text-[#6495ed] transition-colors">sales@inexterpsolution.com</a>
               </li>
             </ul>
           </div>

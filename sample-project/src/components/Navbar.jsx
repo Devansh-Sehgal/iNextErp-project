@@ -67,6 +67,14 @@ const Navbar = () => {
     { title: 'Analytics', href: '/services/analytics' },
   ];
 
+  // Products array with links to individual product pages
+  const products = [
+    { title: 'iNexterp Retail', href: '/products/retail' },
+    { title: 'iNexterp Warehouse', href: '/products/warehouse' },
+    { title: 'iNexterp POS', href: '/products/pos' },
+    { title: 'iNexterp Mobile', href: '/products/mobile' },
+  ];
+
   // Legal pages
   const legalPages = [
     { title: 'Privacy Policy', href: '/privacy' },
@@ -108,6 +116,32 @@ const Navbar = () => {
                           onClick={() => setIsMenuOpen(false)}
                         >
                           <div className="text-sm font-medium">{service.title}</div>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
+          
+          {/* Products dropdown using NavigationMenu */}
+          <NavigationMenu>
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger className="bg-transparent hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent p-0 h-auto">
+                  <span className="text-foreground hover:text-[#6495ed] transition-colors">Products</span>
+                </NavigationMenuTrigger>
+                <NavigationMenuContent className="min-w-[200px]">
+                  <ul className="grid gap-1 p-2">
+                    {products.map((product, i) => (
+                      <li key={i}>
+                        <Link
+                          to={product.href}
+                          className="block select-none space-y-1 rounded-md p-3 hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          <div className="text-sm font-medium">{product.title}</div>
                         </Link>
                       </li>
                     ))}
@@ -175,6 +209,34 @@ const Navbar = () => {
                       onClick={() => setIsMenuOpen(false)}
                     >
                       {service.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            
+            {/* Products dropdown for mobile */}
+            <div className="relative">
+              <button
+                className="flex items-center justify-between w-full text-left text-foreground hover:text-[#6495ed] transition-colors py-2"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const dropdown = e.currentTarget.nextElementSibling;
+                  dropdown.classList.toggle('hidden');
+                }}
+              >
+                Products
+                <ChevronDown size={16} />
+              </button>
+              <ul className="pl-4 hidden space-y-2 mt-2">
+                {products.map((product, i) => (
+                  <li key={i}>
+                    <Link
+                      to={product.href}
+                      className="block py-1 text-foreground hover:text-[#6495ed] transition-colors"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {product.title}
                     </Link>
                   </li>
                 ))}
