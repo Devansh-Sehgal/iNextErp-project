@@ -1,4 +1,4 @@
-
+  
 import { useState, useEffect, lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -6,21 +6,22 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import emailjs from 'emailjs-com';
-import Index from "./pages/Index";
+import Index from "./pages/Index.jsx";
 import Contact from "./pages/Contact.jsx";
-import NotFound from "./pages/NotFound";
+import NotFound from "./pages/NotFound.js";
 import About from "./pages/About.jsx";
 import Blog from "./pages/Blog.jsx";
-import LoadingAnimation from "./components/LoadingAnimation";
-import WhatsAppButton from "./components/WhatsAppButton";
-import ContactPopup from "./components/ContactPopup";
-import BlogDetail from "./pages/BlogDetail";
-import TermsConditions from "./pages/TermsConditions";
-import PrivacyPolicy from "./pages/PrivacyPolicy";
-import RetailProduct from "./pages/RetailProduct";
-import WarehouseProduct from "./pages/WarehouseProduct";
-import POSProduct from "./pages/POSProduct";
-import MobileProduct from "./pages/MobileProduct";
+import LoadingAnimation from "./components/LoadingAnimation.jsx";
+import WhatsAppButton from "./components/WhatsAppButton.jsx";
+import ContactPopup from "./components/ContactPopup.jsx";
+import BlogDetail from "./pages/BlogDetail.jsx";
+import TermsConditions from "./pages/TermsConditions.jsx";
+import PrivacyPolicy from "./pages/PrivacyPolicy.jsx";
+import RetailProduct from "./pages/RetailProduct.jsx";
+import WarehouseProduct from "./pages/WarehouseProduct.jsx";
+import POSProduct from "./pages/POSProduct.jsx";
+import MobileProduct from "./pages/MobileProduct.jsx";
+import LandingPage from "./pages/LandingPage.jsx";
 
 // Use lazy loading for service pages to improve performance
 const InventoryService = lazy(() => import("./pages/InventoryService.jsx"));
@@ -100,6 +101,7 @@ const App = () => {
             <ContactPopup open={showContactPopup} onOpenChange={setShowContactPopup} />
             <Routes>
               <Route path="/" element={<Index />} />
+              <Route path="/landing" element={<LandingPage />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/about" element={<About />} />
               <Route path="/blog" element={<Blog />} />
