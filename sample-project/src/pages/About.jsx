@@ -33,32 +33,17 @@ const About = () => {
         };
     }, []);
 
-    // Timeline data
+    // Updated timeline data
     const timeline = [
         {
-            year: "2010",
+            year: "2024",
             title: "Company Founded",
             description: "InextERP Solutions was established with a vision to transform retail inventory management."
         },
         {
-            year: "2013",
-            title: "First Major Client",
-            description: "Partnered with our first enterprise client, setting the foundation for our growth."
-        },
-        {
-            year: "2016",
-            title: "Cloud Platform Launch",
-            description: "Launched our cloud-based ERP platform, making powerful tools accessible to businesses of all sizes."
-        },
-        {
-            year: "2019",
-            title: "Global Expansion",
-            description: "Expanded operations to serve clients across three continents with localized solutions."
-        },
-        {
-            year: "2023",
-            title: "AI Integration",
-            description: "Introduced AI-powered analytics and forecasting to our core platform."
+            year: "2025",
+            title: "PAN India Expansion",
+            description: "Expanded operations to serve clients across all of India with localized solutions."
         }
     ];
 
@@ -108,7 +93,7 @@ const About = () => {
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                            <div className="bg-muted/20 p-6 rounded-xl shadow-sm hover:shadow-md transition-all transform hover:-translate-y-1 animate-on-scroll opacity-0 transform -translate-y-10 duration-700">
+                            <div className="bg-muted/20 p-6 rounded-xl shadow-sm hover:shadow-md transition-all transform hover:-translate-y-1 animate-on-scroll opacity-0  -translate-y-10 duration-700">
                                 <div className="bg-primary/10 w-12 h-12 rounded-full flex items-center justify-center mb-4">
                                     <Users className="text-primary h-6 w-6" />
                                 </div>
