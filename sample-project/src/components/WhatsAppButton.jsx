@@ -18,7 +18,7 @@ const WhatsAppButton = () => {
 
   return (
     <motion.div
-      className="fixed bottom-6 right-6 z-40"
+      className="fixed bottom-6 right-6 z-20" // Changed z-index to avoid conflict with admin button
       initial={{ scale: 0, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       transition={{ 

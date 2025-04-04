@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Navbar from "../components/Navbar";
@@ -18,7 +17,6 @@ const POSService = () => {
   const y = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [100, 0, 0, 100]);
 
   useEffect(() => {
-    // Reset scroll position when component mounts
     window.scrollTo(0, 0);
   }, []);
 
@@ -63,11 +61,19 @@ const POSService = () => {
     }
   ];
 
+  const reports = [
+    "Sales at a Glance",
+    "Cash at a Glance",
+    "POS Transaction",
+    "GST Reports",
+    "Customer Ledger",
+    "Customer Outstanding"
+  ];
+
   return (
     <>
       <Navbar />
       <main className="overflow-hidden">
-        {/* Hero Section */}
         <section className="relative pt-24 pb-32 overflow-hidden bg-gradient-to-b from-gray-900 to-blue-900 text-white">
           <div className="absolute inset-0 z-0">
             <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1556742044-3c52d6e88c62')] bg-cover bg-center opacity-10"></div>
@@ -98,8 +104,8 @@ const POSService = () => {
                   transition={{ delay: 0.4, duration: 0.8 }}
                   className="text-4xl md:text-6xl font-bold mb-6"
                 >
-                  Modern POS System for 
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300"> Growing Retailers</span>
+                  The most promising retail point-of-sale software for
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300"> improved client interactions</span>
                 </motion.h1>
                 
                 <motion.p
@@ -108,7 +114,7 @@ const POSService = () => {
                   transition={{ delay: 0.6, duration: 0.8 }}
                   className="text-lg md:text-xl text-blue-100 mb-10 max-w-3xl mx-auto"
                 >
-                  Streamline your checkout process, manage inventory in real-time, and gain powerful insights with our integrated POS solution.
+                  Learn all about the costs and charges related to our retail point-of-sale software. Find out how our pricing structure operates and what expenses to anticipate in order to effectively manage your retail operations.
                 </motion.p>
                 
                 <motion.div
@@ -146,7 +152,6 @@ const POSService = () => {
           </div>
         </section>
 
-        {/* Key Benefits */}
         <section className="py-24 bg-white relative" ref={containerRef}>
           <div className="container mx-auto px-4">
             <motion.div 
@@ -171,7 +176,7 @@ const POSService = () => {
                   viewport={{ once: true, margin: "-50px" }}
                   className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 group"
                 >
-                  <div className="mb-5 p-3 bg-blue-50 rounded-xl inline-block group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
+                  <div className="mb-5 p-3 bg-blue-50 rounded-full inline-block group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
                     {benefit.icon}
                   </div>
                   <h3 className="text-xl font-semibold mb-3">{benefit.title}</h3>
@@ -182,8 +187,47 @@ const POSService = () => {
           </div>
         </section>
 
-        {/* Feature Showcase */}
         <section className="py-24 bg-gradient-to-b from-blue-50 to-white">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true }}
+              >
+                <h2 className="text-3xl font-bold mb-8 text-center">Comprehensive Reporting</h2>
+                <p className="text-lg text-gray-600 mb-10 text-center">
+                  Use a variety of reports to obtain insightful information for your business:
+                </p>
+                
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-12">
+                  {reports.map((report, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.5, delay: index * 0.1 }}
+                      viewport={{ once: true }}
+                      className="bg-white rounded-lg p-4 shadow-sm border border-gray-100"
+                    >
+                      <div className="flex items-start">
+                        <Check className="h-5 w-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+                        <span className="text-gray-800">{report}</span>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+                
+                <p className="text-lg text-gray-600 mb-8">
+                  Our retail POS billing software guarantees seamless transactions and improved client experiences throughout the retail and eCommerce sector verticals.
+                </p>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
+        <section className="py-24 bg-white">
           <div className="container mx-auto px-4">
             <div className="flex flex-col lg:flex-row items-center gap-16">
               <motion.div 
@@ -210,7 +254,7 @@ const POSService = () => {
                       viewport={{ once: true }}
                       className="flex gap-4"
                     >
-                      <div className="flex-shrink-0 p-3 bg-blue-50 rounded-lg">
+                      <div className="flex-shrink-0 p-3 bg-blue-50 rounded-full">
                         {feature.icon}
                       </div>
                       <div>
@@ -243,56 +287,6 @@ const POSService = () => {
           </div>
         </section>
 
-        {/* Testimonial Section */}
-        <section className="py-20 bg-white">
-          <div className="container mx-auto px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className="bg-gradient-to-tr from-blue-50 to-indigo-50 rounded-2xl overflow-hidden"
-            >
-              <div className="p-8 md:p-12">
-                <div className="flex flex-col md:flex-row gap-10 items-center">
-                  <div className="md:w-1/3">
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      transition={{ duration: 0.8 }}
-                      viewport={{ once: true }}
-                      className="rounded-xl overflow-hidden aspect-square shadow-lg"
-                    >
-                      <img 
-                        src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2" 
-                        alt="Satisfied Customer" 
-                        className="w-full h-full object-cover"
-                        loading="lazy"
-                      />
-                    </motion.div>
-                  </div>
-                  
-                  <div className="md:w-2/3">
-                    <svg className="h-10 w-10 text-blue-500 mb-6" fill="currentColor" viewBox="0 0 32 32" aria-hidden="true">
-                      <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" />
-                    </svg>
-                    
-                    <p className="text-xl md:text-2xl font-medium mb-6 text-gray-800">
-                      "The POS system has completely transformed our retail operations. Checkout times are cut in half, and we have real-time visibility into inventory across all our locations. The customer insights have helped us personalize our marketing and increase repeat sales by 24%."
-                    </p>
-                    
-                    <div>
-                      <h4 className="font-bold">Sarah Johnson</h4>
-                      <p className="text-gray-600">Director of Operations, Fashion Boutique Inc.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </section>
-
-        {/* CTA Section */}
         <section className="py-20 bg-blue-900 text-white">
           <div className="container mx-auto px-4">
             <motion.div

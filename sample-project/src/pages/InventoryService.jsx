@@ -82,16 +82,16 @@ const InventoryService = () => {
                 </span>
                 
                 <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-700 to-indigo-700">
-                  Next-Generation Inventory Management System
+                  A comprehensive inventory management tool that increases revenue
                 </h1>
                 
                 <p className="text-lg md:text-xl text-gray-700 mb-10 max-w-3xl mx-auto">
-                  Streamline your retail operations with our powerful inventory management solution that brings efficiency, accuracy, and intelligence to your business.
+                  With iNextERP's top inventory management software in India, you can take charge of your company. Make quick decisions for greater profits by using real-time data into turnover ratio, stock age, and top-selling items.
                 </p>
                 
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                   <Button size="lg" className="rounded-full px-8 py-6 text-base">
-                    Schedule a Demo
+                    Get Started
                   </Button>
                   <Button size="lg" variant="outline" className="rounded-full px-8 py-6 text-base group bg-white dark:bg-gray-800">
                     Learn More
@@ -140,65 +140,29 @@ const InventoryService = () => {
           </div>
         </section>
 
-        {/* Interactive Demo Section */}
-        <section className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
+        {/* Main Content Section */}
+        <section className="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
           <div className="container mx-auto px-4">
-            <div className="flex flex-col lg:flex-row items-center gap-12">
-              <motion.div 
-                initial={{ opacity: 0, x: -50 }}
-                whileInView={{ opacity: 1, x: 0 }}
+            <div className="max-w-4xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
                 viewport={{ once: true }}
-                className="lg:w-1/2"
+                className="prose prose-lg max-w-none"
               >
-                <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                  See How Our System Works
-                </h2>
-                <p className="text-lg text-gray-600 mb-8">
-                  Our intuitive dashboard gives you complete visibility of your inventory across all channels. Monitor stock levels, track performance, and make data-driven decisions.
+                <p className="text-lg mb-6">
+                  Use the robust procurement options to keep your inventory efficient and well-organized. Manage your inventory while on the go and take prompt action to increase returns with mobile access and dynamic reporting.
                 </p>
                 
-                <ul className="space-y-4 mb-8">
-                  {[
-                    "Real-time stock tracking across all locations",
-                    "Predictive analytics to forecast demand",
-                    "Automated reordering based on custom rules",
-                    "Comprehensive reporting and insights"
-                  ].map((item, index) => (
-                    <motion.li 
-                      key={index}
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.5, delay: index * 0.1 }}
-                      viewport={{ once: true }}
-                      className="flex items-start"
-                    >
-                      <Check className="h-5 w-5 text-green-500 mt-1 mr-2" />
-                      <span>{item}</span>
-                    </motion.li>
-                  ))}
-                </ul>
-                
-                <Button size="lg" className="rounded-full px-8">
-                  View Live Demo
-                </Button>
-              </motion.div>
-              
-              <motion.div 
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8 }}
-                viewport={{ once: true }}
-                className="lg:w-1/2"
-              >
-                <div className="relative">
-                  <div className="absolute -inset-4 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-xl blur-lg opacity-20 animate-pulse"></div>
-                  <img 
-                    src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d" 
-                    alt="Inventory Dashboard" 
-                    className="rounded-xl shadow-lg w-full relative z-10"
-                    loading="lazy"
-                  />
+                <p className="text-lg mb-6">
+                  Handle online orders from the closest showrooms and manage your multi-channel inventory with ease, providing customers with quick delivery and flawless service.
+                </p>
+
+                <div className="mt-10">
+                  <Button size="lg" className="rounded-full px-8">
+                    Get Started
+                  </Button>
                 </div>
               </motion.div>
             </div>

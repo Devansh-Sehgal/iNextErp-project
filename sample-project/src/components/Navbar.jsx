@@ -64,7 +64,7 @@ const Navbar = () => {
     { title: 'Inventory Management', href: '/services/inventory' },
     { title: 'POS System', href: '/services/pos' },
     { title: 'Supply Chain', href: '/services/supply-chain' },
-    { title: 'Analytics', href: '/services/analytics' },
+    { title: 'Accounting', href: '/services/accounting' },
   ];
 
   // Products array with links to individual product pages
@@ -158,6 +158,12 @@ const Navbar = () => {
             Blog
           </Link>
           <Link
+            to="/career"
+            className="text-foreground hover:text-[#6495ed] transition-colors"
+          >
+            Careers
+          </Link>
+          <Link
             to="/contact"
             className="text-foreground hover:text-[#6495ed] transition-colors"
           >
@@ -249,6 +255,13 @@ const Navbar = () => {
               onClick={() => setIsMenuOpen(false)}
             >
               Blog
+            </Link>
+            <Link
+              to="/career"
+              className="text-foreground hover:text-[#6495ed] transition-colors py-2"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Careers
             </Link>
             <Link
               to="/contact"

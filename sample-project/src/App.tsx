@@ -1,4 +1,4 @@
-  
+
 import { useState, useEffect, lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -6,28 +6,29 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import emailjs from 'emailjs-com';
-import Index from "./pages/Index.jsx";
+import Index from "./pages/Index";
 import Contact from "./pages/Contact.jsx";
-import NotFound from "./pages/NotFound.js";
+import NotFound from "./pages/NotFound";
 import About from "./pages/About.jsx";
 import Blog from "./pages/Blog.jsx";
-import LoadingAnimation from "./components/LoadingAnimation.jsx";
-import WhatsAppButton from "./components/WhatsAppButton.jsx";
-import ContactPopup from "./components/ContactPopup.jsx";
-import BlogDetail from "./pages/BlogDetail.jsx";
-import TermsConditions from "./pages/TermsConditions.jsx";
-import PrivacyPolicy from "./pages/PrivacyPolicy.jsx";
-import RetailProduct from "./pages/RetailProduct.jsx";
-import WarehouseProduct from "./pages/WarehouseProduct.jsx";
-import POSProduct from "./pages/POSProduct.jsx";
-import MobileProduct from "./pages/MobileProduct.jsx";
-import LandingPage from "./pages/LandingPage.jsx";
+import LoadingAnimation from "./components/LoadingAnimation";
+import WhatsAppButton from "./components/WhatsAppButton";
+import ContactPopup from "./components/ContactPopup";
+import BlogDetail from "./pages/BlogDetail";
+import TermsConditions from "./pages/TermsConditions";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import RetailProduct from "./pages/RetailProduct";
+import WarehouseProduct from "./pages/WarehouseProduct";
+import POSProduct from "./pages/POSProduct";
+import MobileProduct from "./pages/MobileProduct";
+import LandingPage from "./pages/LandingPage";
+import Career from "./pages/Career";
 
 // Use lazy loading for service pages to improve performance
 const InventoryService = lazy(() => import("./pages/InventoryService.jsx"));
 const POSService = lazy(() => import("./pages/POSService.jsx"));
 const SupplyChainService = lazy(() => import("./pages/SupplyChainService.jsx"));
-const AnalyticsService = lazy(() => import("./pages/AnalyticsService.jsx"));
+const AccountingService = lazy(() => import("./pages/AnalyticsService.jsx"));
 
 // Initialize EmailJS
 emailjs.init("r2V1JFhGvzvEJjBL0");
@@ -108,6 +109,7 @@ const App = () => {
               <Route path="/blog/:id" element={<BlogDetail />} />
               <Route path="/terms" element={<TermsConditions />} />
               <Route path="/privacy" element={<PrivacyPolicy />} />
+              <Route path="/career" element={<Career />} />
               
               {/* Service Routes */}
               <Route path="/services/inventory" element={
@@ -125,9 +127,9 @@ const App = () => {
                   <SupplyChainService />
                 </Suspense>
               } />
-              <Route path="/services/analytics" element={
+              <Route path="/services/accounting" element={
                 <Suspense fallback={<LoadingAnimation />}>
-                  <AnalyticsService />
+                  <AccountingService />
                 </Suspense>
               } />
               
