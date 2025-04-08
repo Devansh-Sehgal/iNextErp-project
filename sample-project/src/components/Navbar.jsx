@@ -68,7 +68,6 @@ const Navbar = () => {
     { title: 'Cloud Computing', href: '/services/cloud' },
     { title: 'CRM', href: '/services/crm' },
     { title: 'HRM', href: '/services/hrm' },
-    { title: 'HRMS & CRM', href: '/services/hrms-crm' },
   ];
 
   // Products array with links to individual product pages
