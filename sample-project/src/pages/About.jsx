@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -93,7 +94,7 @@ const About = () => {
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                            <div className="bg-muted/20 p-6 rounded-xl shadow-sm hover:shadow-md transition-all transform hover:-translate-y-1 animate-on-scroll opacity-0  -translate-y-10 duration-700">
+                            <div className="bg-muted/20 p-6 rounded-xl shadow-sm hover:shadow-md transition-all transform hover:-translate-y-1 animate-on-scroll opacity-0 -translate-y-10 duration-700">
                                 <div className="bg-primary/10 w-12 h-12 rounded-full flex items-center justify-center mb-4">
                                     <Users className="text-primary h-6 w-6" />
                                 </div>

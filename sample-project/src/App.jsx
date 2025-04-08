@@ -29,6 +29,26 @@ const InventoryService = lazy(() => import("./pages/InventoryService.jsx"));
 const POSService = lazy(() => import("./pages/POSService.jsx"));
 const SupplyChainService = lazy(() => import("./pages/SupplyChainService.jsx"));
 const AccountingService = lazy(() => import("./pages/AccountingService.jsx"));
+const HRMService = lazy(() => import("./pages/HRMService.jsx"));
+const CRMService = lazy(() => import("./pages/CRMService.jsx"));
+const CloudService = lazy(() => import("./pages/CloudService.jsx"));
+
+// Hardware product pages
+const BarcodeProduct = lazy(() => import("./pages/products/BarcodeProduct.jsx"));
+const LabelProduct = lazy(() => import("./pages/products/LabelProduct.jsx"));
+const ComputerProduct = lazy(() => import("./pages/products/ComputerProduct.jsx"));
+const ReceiptPrinterProduct = lazy(() => import("./pages/products/ReceiptPrinterProduct.jsx"));
+const PrinterProduct = lazy(() => import("./pages/products/PrinterProduct.jsx"));
+const ScannerProduct = lazy(() => import("./pages/products/ScannerProduct.jsx"));
+
+// Solution pages
+const WarehouseManagementSolution = lazy(() => import("./pages/solutions/WarehouseManagement.jsx"));
+const MultiLocationSolution = lazy(() => import("./pages/solutions/MultiLocation.jsx"));
+const FashionDistributionSolution = lazy(() => import("./pages/solutions/FashionDistribution.jsx"));
+const LifestyleBrandsSolution = lazy(() => import("./pages/solutions/LifestyleBrands.jsx"));
+// const FashionRetailSolution = lazy(() => import("./pages/solutions/FashionRetail.jsx"));
+// const SupermarketsSolution = lazy(() => import("./pages/solutions/Supermarkets.jsx"));
+// const D2CBrandsSolution = lazy(() => import("./pages/solutions/D2CBrands.jsx"));
 
 // Initialize EmailJS
 emailjs.init("r2V1JFhGvzvEJjBL0");
@@ -132,12 +152,94 @@ const App = () => {
                   <AccountingService />
                 </Suspense>
               } />
+              <Route path="/services/hrm" element={
+                <Suspense fallback={<LoadingAnimation />}>
+                  <HRMService />
+                </Suspense>
+              } />
+              <Route path="/services/crm" element={
+                <Suspense fallback={<LoadingAnimation />}>
+                  <CRMService />
+                </Suspense>
+              } />
+              <Route path="/services/cloud" element={
+                <Suspense fallback={<LoadingAnimation />}>
+                  <CloudService />
+                </Suspense>
+              } />
               
               {/* Product Routes */}
               <Route path="/products/retail" element={<RetailProduct />} />
               <Route path="/products/warehouse" element={<WarehouseProduct />} />
               <Route path="/products/pos" element={<POSProduct />} />
               <Route path="/products/mobile" element={<MobileProduct />} />
+              <Route path="/products/barcode-printer" element={
+                <Suspense fallback={<LoadingAnimation />}>
+                  <BarcodeProduct />
+                </Suspense>
+              } />
+              <Route path="/products/label" element={
+                <Suspense fallback={<LoadingAnimation />}>
+                  <LabelProduct />
+                </Suspense>
+              } />
+              <Route path="/products/computer" element={
+                <Suspense fallback={<LoadingAnimation />}>
+                  <ComputerProduct />
+                </Suspense>
+              } />
+              <Route path="/products/receipt-printer" element={
+                <Suspense fallback={<LoadingAnimation />}>
+                  <ReceiptPrinterProduct />
+                </Suspense>
+              } />
+              <Route path="/products/printer" element={
+                <Suspense fallback={<LoadingAnimation />}>
+                  <PrinterProduct />
+                </Suspense>
+              } />
+              <Route path="/products/scanner" element={
+                <Suspense fallback={<LoadingAnimation />}>
+                  <ScannerProduct />
+                </Suspense>
+              } />
+              
+              {/* Solution Routes */}
+              <Route path="/solutions/fashion-distribution" element={
+                <Suspense fallback={<LoadingAnimation />}>
+                  <FashionDistributionSolution />
+                </Suspense>
+              } />
+              <Route path="/solutions/lifestyle-brands" element={
+                <Suspense fallback={<LoadingAnimation />}>
+                  <LifestyleBrandsSolution />
+                </Suspense>
+              } />
+              {/* <Route path="/solutions/fashion-retail" element={
+                <Suspense fallback={<LoadingAnimation />}>
+                  <FashionRetailSolution />
+                </Suspense>
+              } /> */}
+              {/* <Route path="/solutions/supermarkets" element={
+                <Suspense fallback={<LoadingAnimation />}>
+                  <SupermarketsSolution />
+                </Suspense>
+              } />
+              <Route path="/solutions/d2c-brands" element={
+                <Suspense fallback={<LoadingAnimation />}>
+                  <D2CBrandsSolution />
+                </Suspense>
+              } />
+              <Route path="/solutions/warehouse-management" element={
+                <Suspense fallback={<LoadingAnimation />}>
+                  <WarehouseManagementSolution />
+                </Suspense>
+              } /> */}
+              <Route path="/solutions/multi-location" element={
+                <Suspense fallback={<LoadingAnimation />}>
+                  <MultiLocationSolution />
+                </Suspense>
+              } />
               
               <Route path="*" element={<NotFound />} />
             </Routes>

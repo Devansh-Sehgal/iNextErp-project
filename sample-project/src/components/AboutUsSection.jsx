@@ -82,7 +82,7 @@ const AboutUsSection = () => {
               </p>
             </div>
 
-            <div className="animate-on-scroll opacity-0 transform -translate-x-10 transition-all duration-700 delay-100">
+            <div className="animate-on-scroll opacity-0 transform -translate-x-10 transition-all duration-700 delay-200">
               <h3 className="text-2xl font-bold mb-4 text-primary">Our Approach</h3>
               <p className="text-muted-foreground">
                 Our retail ERP offers additional features right out of the box, like centralized data analytics,

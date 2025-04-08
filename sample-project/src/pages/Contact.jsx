@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -54,7 +55,7 @@ const Contact = () => {
         from_name: formData.name,
         phone_number: formData.phone,
         message: formattedMessage,
-        to_email: "devanshsehgal51@gmail.com", // Your email
+        to_email: "sales@inexterpsolutions.com", // Updated email address
       };
 
       // Send email using EmailJS
@@ -177,8 +178,9 @@ const Contact = () => {
                     <div>
                       <h3 className="font-medium">Email Us</h3>
                       <p className="text-muted-foreground mt-1">
-                        info@inexterpsolution.com<br />
-                        support@inexterpsolution.com
+                        <a href="mailto:sales@inexterpsolutions.com" className="hover:text-primary transition-colors">
+                          sales@inexterpsolutions.com
+                        </a><br />
                       </p>
                     </div>
                   </div>
@@ -190,7 +192,9 @@ const Contact = () => {
                     <div>
                       <h3 className="font-medium">Call Us</h3>
                       <p className="text-muted-foreground mt-1">
-                        <a href="tel:8527262031" className="hover:text-primary transition-colors">8527262031</a>
+                        <a href="tel:9220034859" className="hover:text-primary transition-colors block">9220034859</a>
+                        <a href="tel:9220034860" className="hover:text-primary transition-colors block">9220034860</a>
+                        <a href="tel:9220034861" className="hover:text-primary transition-colors block">9220034861</a>
                       </p>
                     </div>
                   </div>

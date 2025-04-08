@@ -77,10 +77,10 @@ const Index = () => {
       <Navbar />
       <main className="flex-grow">
         <HeroSection />
-        <CTA />
         <AboutUsSection />
         <StatsSection />
         <ServicesSection />
+        <CTA />
         <SolutionsSection />
         <BlogSection />
         <ClientsSection />

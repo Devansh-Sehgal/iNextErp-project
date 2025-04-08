@@ -63,10 +63,10 @@ const StatCounter = ({ value, label, suffix }) => {
 
 const StatsSection = () => {
   const stats = [
-    { value: 785, label: 'Global Brands', suffix: '+' },
-    { value: 533, label: 'Happy Clients', suffix: '+' },
-    { value: 865, label: 'Winning Awards', suffix: null },
-    { value: 346, label: 'Team Members', suffix: '+' }
+    { value: 8, label: 'Years Industry Experience', suffix: '+' },
+    { value: 50, label: 'Pan India', suffix: '+' },
+    { value: 200, label: 'Happy Clients', suffix: '+' },
+    { value: 20, label: 'Team Members', suffix: '+' }
   ];
 
   return (

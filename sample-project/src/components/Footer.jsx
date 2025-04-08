@@ -1,14 +1,20 @@
 
-import { Phone, Mail, MapPin, Facebook, Instagram, Linkedin, X } from 'lucide-react';
+import { Phone, Mail, MapPin, Facebook, Instagram, Linkedin, X, Download } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { FaGooglePlay, FaAppStore, FaQrcode } from 'react-icons/fa';
 
 const Footer = () => {
+  const currentYear = new Date().getFullYear();
+  
   return (
     <footer className="bg-gray-900 text-white pt-16 pb-8">
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
           <div>
-            <h3 className="text-2xl font-bold mb-6">iNexterp</h3>
+            <h3 className="text-2xl font-bold mb-6 flex items-center">
+              <img src='/Logo.png' className='w-10 h-10 mr-2' alt="Logo" />
+              iNextERP
+            </h3>
             <p className="text-white mb-6">
               Transforming retail operations with intelligent inventory solutions that drive growth and efficiency.
             </p>
@@ -31,16 +37,18 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold text-lg mb-6">Solutions</h4>
             <ul className="space-y-3">
-              <li><a href="#" className="text-white hover:text-[#6495ed] transition-colors">Fashion Distribution</a></li>
-              <li><a href="#" className="text-white hover:text-[#6495ed] transition-colors">Lifestyle Brands</a></li>
-              <li><a href="#" className="text-white hover:text-[#6495ed] transition-colors">Fashion Retail</a></li>
-              <li><a href="#" className="text-white hover:text-[#6495ed] transition-colors">Supermarkets</a></li>
-              <li><a href="#" className="text-white hover:text-[#6495ed] transition-colors">D2C Brands</a></li>
+              <li><Link to="/solutions/fashion-distribution" className="text-white hover:text-[#6495ed] transition-colors">Fashion Distribution</Link></li>
+              <li><Link to="/solutions/lifestyle-brands" className="text-white hover:text-[#6495ed] transition-colors">Lifestyle Brands</Link></li>
+              <li><Link to="/solutions/fashion-retail" className="text-white hover:text-[#6495ed] transition-colors">Fashion Retail</Link></li>
+              <li><Link to="/solutions/supermarkets" className="text-white hover:text-[#6495ed] transition-colors">Supermarkets</Link></li>
+              <li><Link to="/solutions/d2c-brands" className="text-white hover:text-[#6495ed] transition-colors">D2C Brands</Link></li>
+              <li><Link to="/solutions/warehouse-management" className="text-white hover:text-[#6495ed] transition-colors">Warehouse Management</Link></li>
+              <li><Link to="/solutions/multi-location" className="text-white hover:text-[#6495ed] transition-colors">Multi Location</Link></li>
             </ul>
           </div>
 
           <div>
-            <h4 className="font-semibold text-lg mb-6">Quick Links</h4>
+          <h4 className="font-semibold text-lg mb-6">Quick Links</h4>
             <ul className="space-y-3">
               <li><Link to="/" className="text-white hover:text-[#6495ed] transition-colors">Home</Link></li>
               <li><Link to="/about" className="text-white hover:text-[#6495ed] transition-colors">About Us</Link></li>
@@ -48,6 +56,22 @@ const Footer = () => {
               <li><Link to="/terms" className="text-white hover:text-[#6495ed] transition-colors">Terms of Service</Link></li>
               <li><Link to="/privacy" className="text-white hover:text-[#6495ed] transition-colors">Privacy Policy</Link></li>  
             </ul>
+            
+            <h4 className="font-semibold text-lg mb-3 mt-6">Download Our App</h4>
+            <div className="flex flex-wrap gap-4">
+              <a href="#" className="flex items-center bg-gray-800 rounded-lg p-2 hover:bg-gray-700 transition-colors">
+                <FaAppStore size={20} className="text-[#6495ed] mr-2" />
+                <span>App Store</span>
+              </a>
+              <a href="#" className="flex items-center bg-gray-800 rounded-lg p-2 hover:bg-gray-700 transition-colors">
+                <FaGooglePlay size={20} className="text-[#6495ed] mr-2" />
+                <span>Play Store</span>
+              </a>
+              <div className="flex flex-col items-center mt-2">
+                <FaQrcode size={60} className="text-white mb-2" />
+                <span className="text-xs text-center">Scan to download</span>
+              </div>
+            </div>
           </div>
 
           <div>
@@ -56,6 +80,17 @@ const Footer = () => {
               <li className="flex items-start space-x-3">
                 <MapPin size={20} className="text-[#6495ed] mt-1 flex-shrink-0" />
                 <div>
+                  <p className="text-white mb-2">
+                    <a 
+                      href="https://maps.google.com/?q=Electronics+City+Metro+Station+H-43+Sector+63" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="hover:text-[#6495ed] transition-colors"
+                    >
+                      <strong>Registered Office:</strong><br />
+                      Near Electronics City Metro Station H-43, Sector 63
+                    </a>
+                  </p>
                   <p className="text-white">
                     <a 
                       href="https://maps.google.com/?q=Electronics+City+Metro+Station+H-43+Sector+63" 
@@ -63,7 +98,7 @@ const Footer = () => {
                       rel="noopener noreferrer"
                       className="hover:text-[#6495ed] transition-colors"
                     >
-                      <strong>Office:</strong><br />
+                      <strong>Corporate Office:</strong><br />
                       Near Electronics City Metro Station H-43, Sector 63
                     </a>
                   </p>
@@ -71,14 +106,24 @@ const Footer = () => {
               </li>
               <li className="flex items-center space-x-3">
                 <Phone size={20} className="text-[#6495ed] flex-shrink-0" />
-                <a href="tel:8527262031" className="text-white hover:text-[#6495ed] transition-colors">8527262031</a>
+                <div className="flex flex-col">
+                  <a href="tel:9220034859" className="text-white hover:text-[#6495ed] transition-colors">9220034859</a>
+                  <a href="tel:9220034860" className="text-white hover:text-[#6495ed] transition-colors">9220034860</a>
+                  <a href="tel:9220034861" className="text-white hover:text-[#6495ed] transition-colors">9220034861</a>
+                </div>
               </li>
               <li className="flex items-center space-x-3">
                 <Mail size={20} className="text-[#6495ed] flex-shrink-0" />
-                <a href="mailto:sales@inexterpsolution.com" className="text-white hover:text-[#6495ed] transition-colors">sales@inexterpsolution.com</a>
+                <a href="mailto:sales@inexterpsolutions.com" className="text-white hover:text-[#6495ed] transition-colors">sales@inexterpsolutions.com</a>
               </li>
             </ul>
           </div>
+        </div>
+        
+        <div className="border-t border-gray-700 pt-6 text-center">
+          <p className="text-sm text-gray-400">
+            © {currentYear} iNextERP. All rights reserved. 
+          </p>
         </div>
       </div>
     </footer>

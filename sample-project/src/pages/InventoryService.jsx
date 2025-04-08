@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Navbar from "../components/Navbar";
@@ -6,6 +5,7 @@ import Footer from "../components/Footer";
 import { Button } from "@/components/ui/button";
 import { Check, ChevronRight, Laptop, BarChart, ShieldCheck, Clock, PenTool } from "lucide-react";
 import { Link } from 'react-router-dom';
+import CTA from "../components/CTA";
 
 const InventoryService = () => {
   const targetRef = useRef(null);
@@ -140,121 +140,103 @@ const InventoryService = () => {
           </div>
         </section>
 
-        {/* Main Content Section */}
+        {/* Main Content Section with Image */}
         <section className="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
           <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto">
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-                viewport={{ once: true }}
-                className="prose prose-lg max-w-none"
-              >
-                <p className="text-lg mb-6">
-                  Use the robust procurement options to keep your inventory efficient and well-organized. Manage your inventory while on the go and take prompt action to increase returns with mobile access and dynamic reporting.
-                </p>
-                
-                <p className="text-lg mb-6">
-                  Handle online orders from the closest showrooms and manage your multi-channel inventory with ease, providing customers with quick delivery and flawless service.
-                </p>
+            <div className="max-w-6xl mx-auto">
+              <div className="flex flex-col md:flex-row gap-12 items-center">
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8 }}
+                  viewport={{ once: true }}
+                  className="md:w-1/2"
+                >
+                  <div className="prose prose-lg max-w-none">
+                    <p className="text-lg mb-6">
+                      Use the robust procurement options to keep your inventory efficient and well-organized. Manage your inventory while on the go and take prompt action to increase returns with mobile access and dynamic reporting.
+                    </p>
+                    
+                    <p className="text-lg mb-6">
+                      Handle online orders from the closest showrooms and manage your multi-channel inventory with ease, providing customers with quick delivery and flawless service.
+                    </p>
 
-                <div className="mt-10">
-                  <Button size="lg" className="rounded-full px-8">
-                    Get Started
-                  </Button>
-                </div>
-              </motion.div>
+                    <div className="mt-10">
+                      <Button size="lg" className="rounded-full px-8">
+                        Get Started
+                      </Button>
+                    </div>
+                  </div>
+                </motion.div>
+                
+                <motion.div
+                  initial={{ opacity: 0, x: 50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.8 }}
+                  viewport={{ once: true }}
+                  className="md:w-1/2"
+                >
+                  <div className="rounded-xl overflow-hidden shadow-xl">
+                    <img 
+                      src="/Services/inventoryManagement1.png" 
+                      alt="Inventory Management Interface" 
+                      className="w-full h-auto object-cover"
+                    />
+                  </div>
+                </motion.div>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* Case Study */}
+        {/* Second Content Section with Image */}
         <section className="py-24 bg-white">
           <div className="container mx-auto px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className="max-w-5xl mx-auto bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl overflow-hidden"
-            >
-              <div className="p-8 md:p-12">
-                <div className="flex flex-col md:flex-row gap-8">
-                  <div className="md:w-1/2">
-                    <span className="inline-block py-1 px-3 rounded-full bg-blue-100 text-blue-800 text-sm font-medium mb-4">
-                      Case Study
-                    </span>
-                    <h3 className="text-2xl md:text-3xl font-bold mb-4">
-                      How Fashion Retailer Boosted Sales by 35%
-                    </h3>
-                    <p className="text-gray-700 mb-6">
-                      A leading fashion retailer implemented our inventory management system and saw dramatic improvements in efficiency, accuracy, and overall sales performance.
+            <div className="max-w-6xl mx-auto">
+              <div className="flex flex-col md:flex-row-reverse gap-12 items-center">
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8 }}
+                  viewport={{ once: true }}
+                  className="md:w-1/2"
+                >
+                  <h3 className="text-2xl md:text-3xl font-bold mb-6">
+                    Multi-channel Inventory Control
+                  </h3>
+                  <div className="prose prose-lg max-w-none">
+                    <p className="text-lg mb-6">
+                      Keep track of your inventory across multiple sales channels, from physical stores to e-commerce platforms, all in one centralized system.
                     </p>
                     
-                    <ul className="space-y-3 mb-6">
-                      <li className="flex items-center">
-                        <span className="inline-flex items-center justify-center h-6 w-6 rounded-full bg-green-100 text-green-800 mr-3 text-xs font-medium">35%</span>
-                        <span>Increase in sales</span>
-                      </li>
-                      <li className="flex items-center">
-                        <span className="inline-flex items-center justify-center h-6 w-6 rounded-full bg-green-100 text-green-800 mr-3 text-xs font-medium">42%</span>
-                        <span>Reduction in stockouts</span>
-                      </li>
-                      <li className="flex items-center">
-                        <span className="inline-flex items-center justify-center h-6 w-6 rounded-full bg-green-100 text-green-800 mr-3 text-xs font-medium">28%</span>
-                        <span>Lower inventory costs</span>
-                      </li>
-                    </ul>
-                    
-                    <Button variant="outline" className="group bg-white dark:bg-gray-800">
-                      Read Full Case Study
-                      <ChevronRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                    </Button>
+                    <p className="text-lg mb-6">
+                      Our real-time analytics provide deep insights into stock performance, helping you make data-driven decisions to optimize your inventory and maximize profits.
+                    </p>
                   </div>
-                  
-                  <div className="md:w-1/2">
-                    <div className="h-full rounded-xl overflow-hidden">
-                      <img 
-                        src="https://images.unsplash.com/photo-1441986300917-64674bd600d8" 
-                        alt="Fashion Retail Store" 
-                        className="h-full w-full object-cover"
-                        loading="lazy"
-                      />
-                    </div>
+                </motion.div>
+                
+                <motion.div
+                  initial={{ opacity: 0, x: -50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.8 }}
+                  viewport={{ once: true }}
+                  className="md:w-1/2"
+                >
+                  <div className="rounded-xl overflow-hidden shadow-xl">
+                    <img 
+                      src="/Services/inventoryManagement2.png" 
+                      alt="Inventory Analytics Dashboard" 
+                      className="w-full h-auto object-cover"
+                    />
                   </div>
-                </div>
+                </motion.div>
               </div>
-            </motion.div>
+            </div>
           </div>
         </section>
+
         {/* CTA Section */}
-        <section className="py-20 bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
-          <div className="container mx-auto px-4">
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ duration: 1 }}
-              viewport={{ once: true }}
-              className="max-w-4xl mx-auto text-center"
-            >
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                Ready to Transform Your Inventory Management?
-              </h2>
-              <p className="text-lg mb-8 text-blue-100">
-                Join thousands of retailers who have revolutionized their operations with our system.
-              </p>
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Button size="lg" variant="secondary" className="rounded-full px-8">
-                  Schedule a Demo
-                </Button>
-                <Button size="lg" variant="outline" className="text-white border-white bg-transparent hover:bg-white/10 rounded-full px-8">
-                  Contact Sales
-                </Button>
-              </div>
-            </motion.div>
-          </div>
-        </section>
+        <CTA />
       </main>
       <Footer />
     </>

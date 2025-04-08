@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Navbar from "../components/Navbar";
@@ -5,6 +6,7 @@ import Footer from "../components/Footer";
 import { Button } from "@/components/ui/button";
 import { ShoppingBag, CreditCard, BarChart, Database, Zap, Layers, Check, ChevronRight } from "lucide-react";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import CTA from "../components/CTA";
 
 const POSService = () => {
   const containerRef = useRef(null);
@@ -46,17 +48,17 @@ const POSService = () => {
   const features = [
     {
       title: "Lightning Fast Transactions",
-      icon: <Zap className="h-8 w-8 text-primary" />,
+      icon: <div className="bg-blue-50 rounded-full p-3"><Zap className="h-8 w-8 text-primary" /></div>,
       description: "Process sales in seconds with our optimized checkout flow and intuitive interface."
     },
     {
       title: "Centralized Inventory Control",
-      icon: <Layers className="h-8 w-8 text-primary" />,
+      icon: <div className="bg-blue-50 rounded-full p-3"><Layers className="h-8 w-8 text-primary" /></div>,
       description: "Manage your entire inventory across all locations from a single dashboard."
     },
     {
       title: "Customer Relationship Management",
-      icon: <ShoppingBag className="h-8 w-8 text-primary" />,
+      icon: <div className="bg-blue-50 rounded-full p-3"><ShoppingBag className="h-8 w-8 text-primary" /></div>,
       description: "Build customer loyalty with integrated profiles, purchase history, and personalized marketing."
     }
   ];
@@ -76,7 +78,7 @@ const POSService = () => {
       <main className="overflow-hidden">
         <section className="relative pt-24 pb-32 overflow-hidden bg-gradient-to-b from-gray-900 to-blue-900 text-white">
           <div className="absolute inset-0 z-0">
-            <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1556742044-3c52d6e88c62')] bg-cover bg-center opacity-10"></div>
+            <div className="absolute inset-0 bg-[url('/Services/Pos%20System%201.png')] bg-cover bg-center opacity-10"></div>
             <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-indigo-900/80"></div>
           </div>
           
@@ -141,7 +143,7 @@ const POSService = () => {
                 <div className="absolute -inset-1 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-xl blur-lg opacity-30"></div>
                 <AspectRatio ratio={16 / 9} className="bg-white rounded-lg overflow-hidden shadow-2xl">
                   <img 
-                    src="https://images.unsplash.com/photo-1556740738-b6a63e27c4df" 
+                    src="/Services/Pos System 2.png" 
                     alt="POS System Interface" 
                     className="w-full h-full object-cover"
                     loading="lazy"
@@ -254,7 +256,7 @@ const POSService = () => {
                       viewport={{ once: true }}
                       className="flex gap-4"
                     >
-                      <div className="flex-shrink-0 p-3 bg-blue-50 rounded-full">
+                      <div className="flex-shrink-0">
                         {feature.icon}
                       </div>
                       <div>
@@ -276,7 +278,7 @@ const POSService = () => {
                 <div className="relative rounded-2xl overflow-hidden shadow-xl">
                   <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-2xl blur"></div>
                   <img 
-                    src="https://images.unsplash.com/photo-1519222970733-f546218fa6d7" 
+                    src="/Services/Pos System 1.png" 
                     alt="POS System in use" 
                     className="rounded-2xl relative z-10"
                     loading="lazy"
@@ -287,32 +289,8 @@ const POSService = () => {
           </div>
         </section>
 
-        <section className="py-20 bg-blue-900 text-white">
-          <div className="container mx-auto px-4">
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ duration: 1 }}
-              viewport={{ once: true }}
-              className="max-w-4xl mx-auto text-center"
-            >
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                Ready to Transform Your Retail Operations?
-              </h2>
-              <p className="text-lg mb-8 text-blue-200">
-                Join thousands of retailers who have revolutionized their point of sale experience.
-              </p>
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Button size="lg" variant="secondary" className="rounded-full px-8">
-                  Schedule a Demo
-                </Button>
-                <Button size="lg" variant="outline" className="text-white border-white bg-transparent hover:bg-white/10 rounded-full px-8">
-                  Contact Sales
-                </Button>
-              </div>
-            </motion.div>
-          </div>
-        </section>
+        {/* CTA Section */}
+        {/* <CTA /> */}
       </main>
       <Footer />
     </>

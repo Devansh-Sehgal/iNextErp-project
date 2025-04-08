@@ -65,14 +65,20 @@ const Navbar = () => {
     { title: 'POS System', href: '/services/pos' },
     { title: 'Supply Chain', href: '/services/supply-chain' },
     { title: 'Accounting', href: '/services/accounting' },
+    { title: 'Cloud Computing', href: '/services/cloud' },
+    { title: 'CRM', href: '/services/crm' },
+    { title: 'HRM', href: '/services/hrm' },
+    { title: 'HRMS & CRM', href: '/services/hrms-crm' },
   ];
 
   // Products array with links to individual product pages
   const products = [
-    { title: 'iNexterp Retail', href: '/products/retail' },
-    { title: 'iNexterp Warehouse', href: '/products/warehouse' },
-    { title: 'iNexterp POS', href: '/products/pos' },
-    { title: 'iNexterp Mobile', href: '/products/mobile' },
+    { title: 'Barcode Printer', href: '/products/barcode-printer' },
+    { title: 'Labels', href: '/products/label' },
+    { title: 'Computer', href: '/products/computer' },
+    { title: 'Receipt Printer', href: '/products/receipt-printer' },
+    { title: 'Printer', href: '/products/printer' },
+    { title: 'Scanner', href: '/products/scanner' },
   ];
 
   // Legal pages
@@ -87,8 +93,9 @@ const Navbar = () => {
       : 'bg-transparent py-2'
       }`}>
       <div className="container mx-auto px-4 md:px-6 flex justify-between items-center">
-        <Link to={getHref('hero')} onClick={(e) => handleNavClick(e, 'hero')} className="text-2xl font-bold text-[#6495ed]">
-          <img src='/Logo.png' className='w-14 h-14' alt="Logo" />
+        <Link to={getHref('hero')} onClick={(e) => handleNavClick(e, 'hero')} className="flex items-center">
+          <img src='/Logo.png' className='w-12 h-12 mr-2' alt="Logo" />
+          <span className="text-xl font-bold text-[#6495ed]">iNextERP</span>
         </Link>
 
         <div className="hidden md:flex items-center space-x-8">
@@ -158,7 +165,7 @@ const Navbar = () => {
             Blog
           </Link>
           <Link
-            to="/career"
+            to="/careers"
             className="text-foreground hover:text-[#6495ed] transition-colors"
           >
             Careers
@@ -257,7 +264,7 @@ const Navbar = () => {
               Blog
             </Link>
             <Link
-              to="/career"
+              to="/careers"
               className="text-foreground hover:text-[#6495ed] transition-colors py-2"
               onClick={() => setIsMenuOpen(false)}
             >

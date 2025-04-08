@@ -1,5 +1,4 @@
-
-import { BarChart3, Cloud, Code, Palette, ShoppingBag, Truck } from 'lucide-react';
+import { BarChart3, Cloud, Code, FileText, Palette, ShoppingBag, Truck, UserPlus, Users } from 'lucide-react';
 import ServiceCard from './ServiceCard';
 import { useEffect, useRef } from 'react';
 
@@ -25,39 +24,69 @@ const ServicesSection = () => {
       cards.forEach((card) => observer.unobserve(card));
     };
   }, []);
-
   const services = [
     {
       icon: BarChart3,
       title: 'IT Consulting',
-      description: 'Strategic IT planning and implementation services tailored to retail business needs and challenges.'
+      description: 'Strategic IT planning and implementation services tailored to retail business needs and challenges.',
+      link: '/services/consulting'
     },
     {
       icon: Palette,
       title: 'Design and Development',
-      description: 'Custom software solutions with intuitive UI/UX design focused on enhancing retail operations.'
+      description: 'Custom software solutions with intuitive UI/UX design focused on enhancing retail operations.',
+      link: '/services/development'
     },
     {
       icon: Cloud,
       title: 'Cloud Computing',
-      description: 'Secure, scalable cloud infrastructure optimized for retail inventory and operations management.'
+      description: 'Secure, scalable cloud infrastructure optimized for retail inventory operations. We are an authorized distributor.',
+      link: '/services/cloud'
     },
     {
       icon: ShoppingBag,
       title: 'Retail and Point of Sale',
-      description: 'Integrated POS systems that streamline checkout and inventory updates in real-time.'
+      description: 'Integrated POS systems that streamline checkout and inventory updates in real-time.',
+      link: '/services/pos'
     },
     {
       icon: Code,
       title: 'Inventory Management',
-      description: 'Advanced inventory tracking, forecasting, and optimization to minimize costs and stockouts.'
+      description: 'Advanced inventory tracking, forecasting, and optimization to minimize costs and stockouts.',
+      link: '/services/inventory'
     },
     {
       icon: Truck,
       title: 'Manufacturing Solutions',
       description: 'End-to-end production tracking and supply chain management for retail manufacturers.'
+    },
+    {
+      icon: Truck,
+      title: 'Supply Chain Management',
+      description: 'Revolutionary production processes for the Indian industrial sector with end-to-end tracking.',
+      link: '/services/supply-chain'
+    },
+    {
+      icon: UserPlus,
+      title: 'HRM',
+      description: 'Human Resource Management systems to streamline employee records, payroll, and performance evaluations.',
+      link: '/services/hrm'
+    },
+    {
+      icon: Users,
+      title: 'CRM',
+      description: 'Customer Relationship Management systems to enhance customer satisfaction and retention.',
+      link: '/services/crm'
+    },
+    {
+      icon: FileText,
+      title: 'Accounting',
+      description: 'India\'s finest accounting software to revolutionize inventory management with seamless integration.',
+      link: '/services/accounting'
     }
   ];
+
+
 
   return (
     <section id="services" className="py-4 bg-muted/50 relative">

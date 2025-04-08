@@ -1,5 +1,7 @@
-import { ShoppingBag, ShoppingCart, Package, Store, ShirtIcon, Loader } from 'lucide-react';
+
+import { ShirtIcon, ShoppingBag, Package, Store, Loader, Warehouse, MapPin } from 'lucide-react';
 import { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 
 const SolutionsSection = () => {
   const sectionRef = useRef(null);
@@ -28,12 +30,14 @@ const SolutionsSection = () => {
     {
       icon: ShirtIcon,
       title: 'Fashion Distribution',
-      description: 'Streamline your fashion supply chain with real-time inventory tracking across warehouses and distribution centers.'
+      description: 'Streamline your fashion supply chain with real-time inventory tracking across warehouses and distribution centers.',
+      link: '/solutions/fashion-distribution'
     },
     {
       icon: ShoppingBag,
       title: 'Lifestyle Brands',
-      description: 'Unified inventory management for multi-category lifestyle products with seasonal demand forecasting.'
+      description: 'Unified inventory management for multi-category lifestyle products with seasonal demand forecasting.',
+      link: '/solutions/lifestyle-brands'
     },
     {
       icon: Store,
@@ -41,19 +45,21 @@ const SolutionsSection = () => {
       description: 'Size/color matrix management, style-level analytics, and omnichannel inventory optimization for fashion retailers.'
     },
     {
-      icon: ShoppingCart,
-      title: 'Supermarkets',
-      description: 'Fresh inventory management with shelf-life tracking, auto-replenishment, and waste reduction analytics.'
-    },
-    {
       icon: Package,
       title: 'D2C Brands',
       description: 'Direct-to-consumer inventory solutions with integrated fulfillment, returns management, and customer insights.'
     },
     {
-      icon: Loader,
-      title: 'Product Management',
-      description: 'Comprehensive product lifecycle management from concept to retirement with full visibility.'
+      icon: Warehouse,
+      title: 'Warehouse Management',
+      description: 'Comprehensive warehouse management with barcode scanning, bin locations, and efficient picking/packing workflows.',
+      link: '/solutions/warehouse-management'
+    },
+    {
+      icon: MapPin,
+      title: 'Multi Location',
+      description: 'Centralized inventory control across multiple retail locations with real-time stock visibility and transfer management.',
+      link: '/solutions/multi-location'
     }
   ];
 
@@ -76,34 +82,58 @@ const SolutionsSection = () => {
               <div
                 key={index}
                 className="solution-item animate-fade-up sticky top-0 rounded-2xl p-4 opacity-0 transform translate-y-10 transition-all duration-700"
-                style={{ 
+                style={{
                   animationDelay: `${0.1 + index * 0.1}s`,
                   transitionDelay: `${index * 0.05}s`
                 }}
               >
-                <div
-                  className={`bg-white p-6 rounded-xl shadow-md hover:shadow-lg border border-border group transition-all duration-300 relative overflow-hidden service-card h-full min-h-[280px] flex flex-col ${index % 2 === 1 ? 'rotate-1' : '-rotate-1'}`}
-                >
-                  <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-primary/3 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                {solution.link ? (
+                  <Link to={solution.link} className="no-underline text-foreground">
+                    <div
+                      className={`bg-white p-6 rounded-xl shadow-md hover:shadow-lg border border-border group transition-all duration-300 relative overflow-hidden service-card h-full min-h-[280px] flex flex-col ${index % 2 === 1 ? 'rotate-1' : '-rotate-1'}`}
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-primary/3 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
-                  <div className="relative z-1">
-                    <div className="w-14 h-14 flex items-center justify-center rounded-full bg-primary/10 text-primary mb-4">
-                      <solution.icon size={24} className="transform transition-transform group-hover:scale-110 duration-300" />
+                      <div className="relative z-1">
+                        <div className="w-14 h-14 flex items-center justify-center rounded-full bg-primary/10 text-primary mb-4">
+                          <solution.icon size={24} className="transform transition-transform group-hover:scale-110 duration-300" />
+                        </div>
+
+                        <h3 className="text-xl font-semibold mb-3">{solution.title}</h3>
+                        <p className="text-muted-foreground">{solution.description}</p>
+
+                        <div className="h-0.5 w-0 bg-primary mt-6 transition-all duration-300 group-hover:w-full"></div>
+                      </div>
+
+                      {/* Subtle decorative elements */}
+                      <div className="absolute -bottom-4 -right-4 w-12 h-12 bg-primary/5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    </div>
+                  </Link>
+                ) : (
+                  <div
+                    className={`bg-white p-6 rounded-xl shadow-md hover:shadow-lg border border-border group transition-all duration-300 relative overflow-hidden service-card h-full min-h-[280px] flex flex-col ${index % 2 === 1 ? 'rotate-1' : '-rotate-1'}`}
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-primary/3 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                    <div className="relative z-1">
+                      <div className="w-14 h-14 flex items-center justify-center rounded-full bg-primary/10 text-primary mb-4">
+                        <solution.icon size={24} className="transform transition-transform group-hover:scale-110 duration-300" />
+                      </div>
+
+                      <h3 className="text-xl font-semibold mb-3">{solution.title}</h3>
+                      <p className="text-muted-foreground">{solution.description}</p>
+
+                      <div className="h-0.5 w-0 bg-primary mt-6 transition-all duration-300 group-hover:w-full"></div>
                     </div>
 
-                    <h3 className="text-xl font-semibold mb-3">{solution.title}</h3>
-                    <p className="text-muted-foreground">{solution.description}</p>
-
-                    <div className="h-0.5 w-0 bg-primary mt-6 transition-all duration-300 group-hover:w-full"></div>
+                    {/* Subtle decorative elements */}
+                    <div className="absolute -bottom-4 -right-4 w-12 h-12 bg-primary/5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   </div>
-
-                  {/* Subtle decorative elements */}
-                  <div className="absolute -bottom-4 -right-4 w-12 h-12 bg-primary/5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                </div>
+                )}
               </div>
             ))}
           </div>
-          
+
           {/* Decorative elements */}
           <div className="absolute -bottom-20 -right-20 w-40 h-40 bg-blue-300/10 rounded-full blur-3xl z-0"></div>
           <div className="absolute -top-20 -left-20 w-40 h-40 bg-purple-300/10 rounded-full blur-3xl z-0"></div>

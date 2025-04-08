@@ -1,7 +1,7 @@
 
 import { useRef } from 'react';
 
-const ServiceCard = ({ icon: Icon, title, description, index }) => {
+const ServiceCard = ({ icon: Icon, title, description, index,link }) => {
   const cardRef = useRef(null);
   const gradientRef = useRef(null);
 
@@ -46,7 +46,7 @@ const ServiceCard = ({ icon: Icon, title, description, index }) => {
         <p className="text-muted-foreground flex-grow">{description}</p>
 
         <div className="mt-6 pt-4 border-t border-border">
-          <a href="#" className="text-primary font-medium inline-flex items-center hover:underline">
+          <a href={link} className="text-primary font-medium inline-flex items-center hover:underline">
             Learn more
             <svg className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
