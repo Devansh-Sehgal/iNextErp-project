@@ -100,7 +100,7 @@ const ScannerProduct = () => {
                 <div className="relative group overflow-hidden rounded-2xl shadow-2xl">
                   <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   <img
-                    src="/Products/computer 1.png"
+                    src="/Products/Scanner 1.png"
                     alt="Barcode Scanner"
                     className="w-full h-auto transform transition-transform duration-700 group-hover:scale-105 z-10 relative"
                   />
@@ -182,7 +182,7 @@ const ScannerProduct = () => {
             <div className="flex flex-col md:flex-row items-center gap-10">
               <div className="md:w-1/2 space-y-6">
                 <img
-                  src="/Products/computer 2.png"
+                  src="/Products/Scanner 2.png"
                   alt="Scanner in use at retail counter"
                   className="rounded-xl shadow-lg transform transition-all duration-700 hover:scale-105 w-full hover:shadow-2xl"
                 />

@@ -52,7 +52,7 @@ const Footer = () => {
               <li><Link to="/" className="text-white hover:text-[#6495ed] transition-colors">Home</Link></li>
               <li><Link to="/about" className="text-white hover:text-[#6495ed] transition-colors">About Us</Link></li>
               <li><Link to="/contact" className="text-white hover:text-[#6495ed] transition-colors">Contact Us</Link></li>
-              <li><Link to="/terms" className="text-white hover:text-[#6495ed] transition-colors">Terms of Service</Link></li>
+              <li><Link to="/terms" className="text-white hover:text-[#6495ed] transition-colors">Terms & Condition</Link></li>
               <li><Link to="/privacy" className="text-white hover:text-[#6495ed] transition-colors">Privacy Policy</Link></li>  
             </ul>
             
@@ -62,14 +62,10 @@ const Footer = () => {
                 <FaAppStore size={20} className="text-[#6495ed] mr-2" />
                 <span>App Store</span>
               </a>
-              <a href="#" className="flex items-center bg-gray-800 rounded-lg p-2 hover:bg-gray-700 transition-colors">
+              <a href="https://play.google.com/store/apps/details?id=com.inextsales" className="flex items-center bg-gray-800 rounded-lg p-2 hover:bg-gray-700 transition-colors" target='_blank'>
                 <FaGooglePlay size={20} className="text-[#6495ed] mr-2" />
                 <span>Play Store</span>
               </a>
-              <div className="flex flex-col items-center mt-2">
-                <FaQrcode size={60} className="text-white mb-2" />
-                <span className="text-xs text-center">Scan to download</span>
-              </div>
             </div>
           </div>
 

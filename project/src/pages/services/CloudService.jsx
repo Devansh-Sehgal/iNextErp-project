@@ -141,9 +141,9 @@ const CloudService = () => {
                 <div className="absolute -inset-4 bg-primary/10 rounded-full blur-xl animate-pulse"></div>
                 <div className="bg-white rounded-2xl shadow-xl overflow-hidden relative">
                   <img 
-                    src="/Services/Cloud%20Computing%201.png" 
+                    src="/Services/cloud computing 1.png" 
                     alt="Cloud Computing Infrastructure" 
-                    className="w-full object-cover transform transition-transform duration-700 hover:scale-105"
+                    className="w-full object-fill transform transition-transform duration-700 hover:scale-105"
                   />
                 </div>
               </div>
@@ -233,9 +233,9 @@ const CloudService = () => {
               <div className="order-1 lg:order-2">
                 <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
                   <img 
-                    src="/Services/Cloud%20Computing%202.png" 
+                    src="/Services/cloud computing 2.png" 
                     alt="Cloud Computing Dashboard" 
-                    className="w-full object-cover h-80 lg:h-96"
+                    className="w-full object-fill h-80 lg:h-96"
                   />
                 </div>
               </div>

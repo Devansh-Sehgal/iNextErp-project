@@ -141,7 +141,7 @@ const HRMService = () => {
                 <div className="absolute -inset-4 bg-primary/10 rounded-full blur-xl animate-pulse"></div>
                 <div className="bg-white rounded-2xl shadow-xl overflow-hidden relative">
                   <img 
-                    src="/Services/HRMS%20CRM%201.png" 
+                    src="/Services/Hrm 1.png" 
                     alt="HR Management Dashboard" 
                     className="w-full object-cover transform transition-transform duration-700 hover:scale-105"
                   />
@@ -186,7 +186,7 @@ const HRMService = () => {
               <div>
                 <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
                   <img 
-                    src="/Services/HRMS%20CRM%202.png" 
+                    src="/Services/hrm 2.png" 
                     alt="HR Management System" 
                     className="w-full object-cover h-80 lg:h-96"
                   />

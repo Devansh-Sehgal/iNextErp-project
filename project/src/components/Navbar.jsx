@@ -94,13 +94,13 @@ const Navbar = () => {
       <div className="container mx-auto px-4 md:px-6 flex justify-between items-center">
         <Link to={getHref('hero')} onClick={(e) => handleNavClick(e, 'hero')} className="flex items-center">
           <img src='/Logo.png' className='w-12 h-12 mr-2' alt="Logo" />
-          <span className="text-xl font-bold text-[#6495ed]">iNextERP</span>
+          <span className="text-4xl font-bold text-[#4888db]">iNextERP</span>
         </Link>
 
         <div className="hidden md:flex items-center space-x-8">
           <Link
             to="/about"
-            className="text-foreground hover:text-[#6495ed] transition-colors"
+            className="text-foreground hover:text-[#0c1321] transition-colors"
           >
             About Us
           </Link>

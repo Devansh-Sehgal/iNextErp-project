@@ -150,7 +150,7 @@ const AccountingService = () => {
               >
                 <div className="rounded-xl overflow-hidden shadow-2xl">
                   <img 
-                    src="https://images.unsplash.com/photo-1554224155-8d04cb21cd64" 
+                    src="/Services/Accounting 1.png" 
                     alt="Accounting Services" 
                     className="w-full h-auto"
                   />
@@ -204,7 +204,7 @@ const AccountingService = () => {
                 >
                   <div className="rounded-xl overflow-hidden shadow-2xl">
                     <img 
-                      src="https://images.unsplash.com/photo-1460925895917-afdab827c52f" 
+                      src="/Services/Accounting 2.png" 
                       alt="Financial Analytics" 
                       className="w-full h-auto"
                     />

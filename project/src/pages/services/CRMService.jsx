@@ -141,9 +141,9 @@ const CRMService = () => {
                 <div className="absolute -inset-4 bg-primary/10 rounded-full blur-xl animate-pulse"></div>
                 <div className="bg-white rounded-2xl shadow-xl overflow-hidden relative">
                   <img 
-                    src="/Services/HRMS%20CRM%201.png" 
+                    src="/Services/CRM 1.png" 
                     alt="CRM Dashboard" 
-                    className="w-full object-cover transform transition-transform duration-700 hover:scale-105"
+                    className="w-full object-fill transform transition-transform duration-700 hover:scale-105"
                   />
                 </div>
               </div>
@@ -218,7 +218,7 @@ const CRMService = () => {
               <div className="order-1 lg:order-2">
                 <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
                   <img 
-                    src="/Services/HRMS%20CRM%202.png" 
+                    src="/Services/CRM 2.png" 
                     alt="CRM Analytics" 
                     className="w-full object-cover h-80 lg:h-96"
                   />
