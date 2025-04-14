@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -16,7 +15,6 @@ const Contact = () => {
   const [phoneError, setPhoneError] = useState('');
 
   useEffect(() => {
-    // Scroll to top when contact page loads
     window.scrollTo(0, 0);
   }, []);
 
@@ -39,7 +37,6 @@ const Contact = () => {
   const sendForm = async (e) => {
     e.preventDefault();
     
-    // Validate phone number
     if (!validatePhone()) {
       return;
     }
@@ -47,23 +44,20 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      // Format message to include name and phone
       const formattedMessage = `Name: ${formData.name}\nPhone Number: ${formData.phone}\nCompany: ${formData.company || "Not provided"}\n\nMessage: ${formData.message || "No message provided"}`;
       
-      // Prepare the template parameters for EmailJS
       const templateParams = {
         from_name: formData.name,
         phone_number: formData.phone,
         message: formattedMessage,
-        to_email: "sales@inexterpsolutions.com", // Updated email address
+        to_email: "sales@inexterpsolutions.com",
       };
 
-      // Send email using EmailJS
       await emailjs.send(
-        "service_kcdgjkn", // Service ID
-        "template_g4gwmo7", // Template ID
+        "service_kcdgjkn",
+        "template_g4gwmo7",
         templateParams,
-        "F2tTKnOXIv5menGxL" // User ID (public key)
+        "F2tTKnOXIv5menGxL"
       );
 
       setIsSubmitting(false);
@@ -74,11 +68,9 @@ const Contact = () => {
         description: "We'll get back to you as soon as possible.",
       });
 
-      // Reset success state after 3 seconds
       setTimeout(() => {
         setIsSuccess(false);
 
-        // Reset form
         setFormData({
           name: '',
           phone: '',
@@ -102,7 +94,6 @@ const Contact = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    // Only allow numbers for phone field
     if (name === 'phone') {
       const phoneValue = value.replace(/[^0-9]/g, '');
       setFormData({
@@ -110,7 +101,6 @@ const Contact = () => {
         [name]: phoneValue
       });
       
-      // Clear error if length is becoming correct
       if (phoneValue.length === 10) {
         setPhoneError('');
       } else if (phoneValue.length > 0) {
@@ -140,8 +130,7 @@ const Contact = () => {
         </div>
         
         <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-            {/* Contact information */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-stretch">
             <div className="space-y-8 order-2 lg:order-1 animate-fade-up" style={{ animationDelay: '0.2s' }}>
               <div className="bg-primary/5 backdrop-blur-md rounded-2xl p-8 border border-border/30 shadow-lg relative overflow-hidden">
                 <div className="absolute -top-12 -right-12 w-32 h-32 bg-primary/10 rounded-full blur-2xl"></div>
@@ -262,9 +251,8 @@ const Contact = () => {
               </div>
             </div>
             
-            {/* Contact form */}
             <div className="order-1 lg:order-2 animate-fade-up" style={{ animationDelay: '0.3s' }}>
-              <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 md:p-10 border border-border/30 relative overflow-hidden">
+              <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 md:p-10 border border-border/30 relative overflow-hidden h-full">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-full"></div>
                 
                 <h2 className="text-2xl font-semibold mb-6 relative z-10">Send Us a Message</h2>

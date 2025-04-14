@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
@@ -89,18 +88,18 @@ const Navbar = () => {
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
       ? 'bg-white/80 backdrop-blur-lg shadow-md py-2'
-      : 'bg-transparent py-2'
+      : 'bg-transparent py-4'
       }`}>
       <div className="container mx-auto px-4 md:px-6 flex justify-between items-center">
         <Link to={getHref('hero')} onClick={(e) => handleNavClick(e, 'hero')} className="flex items-center">
-          <img src='/Logo.png' className='w-12 h-12 mr-2' alt="Logo" />
-          <span className="text-4xl font-bold text-[#4888db]">iNextERP</span>
+          <img src='/Logo.png' className='w-16 h-16 mr-3' alt="Logo" />
+          <span className="text-2xl md:text-3xl font-bold text-[#4a78d0]">iNextERP</span>
         </Link>
 
         <div className="hidden md:flex items-center space-x-8">
           <Link
             to="/about"
-            className="text-foreground hover:text-[#0c1321] transition-colors"
+            className="text-foreground hover:text-[#6495ed] transition-colors"
           >
             About Us
           </Link>
