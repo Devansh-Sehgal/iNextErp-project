@@ -75,17 +75,6 @@ const Footer = () => {
               <li className="flex items-start space-x-3">
                 <MapPin size={20} className="text-[#6495ed] mt-1 flex-shrink-0" />
                 <div>
-                  <p className="text-white mb-2">
-                    <a 
-                      href="https://maps.google.com/?q=Electronics+City+Metro+Station+H-43+Sector+63" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="hover:text-[#6495ed] transition-colors"
-                    >
-                      <strong>Registered Office:</strong><br />
-                      Near Electronics City Metro Station H-43, Sector 63
-                    </a>
-                  </p>
                   <p className="text-white">
                     <a 
                       href="https://maps.google.com/?q=Electronics+City+Metro+Station+H-43+Sector+63" 
