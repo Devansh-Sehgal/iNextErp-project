@@ -93,7 +93,7 @@ const Navbar = () => {
       <div className="container mx-auto px-4 md:px-6 flex justify-between items-center">
         <Link to={getHref('hero')} onClick={(e) => handleNavClick(e, 'hero')} className="flex items-center">
           <img src='/Logo.png' className='w-16 h-16 mr-3' alt="Logo" />
-          <span className="text-2xl md:text-3xl font-bold text-[#4a78d0]">iNextERP</span>
+          <span className="text-2xl md:text-3xl font-bold text-[#6495ed]">iNextERP</span>
         </Link>
 
         <div className="hidden md:flex items-center space-x-8">
