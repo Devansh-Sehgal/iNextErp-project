@@ -48,11 +48,12 @@ const ApplicationModal = ({ isOpen, setIsOpen, selectedJob, toast }) => {
 
   const onSubmitApplication = async (data) => {
     setIsSubmitting(true);
-    
+
     try {
-      // Format message for email
+      // Format message for email with job title prominently displayed
       const formattedMessage = `
         Job Application for: ${selectedJob?.title}
+        Position ID: ${selectedJob?.id}
         
         Applicant Information:
         ---------------------
@@ -64,13 +65,13 @@ const ApplicationModal = ({ isOpen, setIsOpen, selectedJob, toast }) => {
         ---------------------
         ${data.coverLetter}
       `;
-      
+
       // Prepare the template parameters for EmailJS
       const templateParams = {
         from_name: data.fullName,
         phone_number: data.phone,
         message: formattedMessage,
-        to_email: "devanshsehgal51@gmail.com", // You can change this to your desired email
+        to_email: "Info@inexterpsolutions.com",
         subject: `Job Application for ${selectedJob?.title}`,
       };
 
@@ -81,13 +82,13 @@ const ApplicationModal = ({ isOpen, setIsOpen, selectedJob, toast }) => {
         templateParams,
         "F2tTKnOXIv5menGxL" // User ID (public key)
       );
-      
+
       // Show success message
       toast({
         title: "Application Submitted",
         description: "Thanks for your interest! We'll review your application and get back to you soon.",
       });
-      
+
       // Close modal and reset form
       setIsOpen(false);
       applicationForm.reset();
@@ -127,7 +128,7 @@ const ApplicationModal = ({ isOpen, setIsOpen, selectedJob, toast }) => {
                 </FormItem>
               )}
             />
-            
+
             <FormField
               control={applicationForm.control}
               name="email"
@@ -141,7 +142,7 @@ const ApplicationModal = ({ isOpen, setIsOpen, selectedJob, toast }) => {
                 </FormItem>
               )}
             />
-            
+
             <FormField
               control={applicationForm.control}
               name="phone"
@@ -155,7 +156,7 @@ const ApplicationModal = ({ isOpen, setIsOpen, selectedJob, toast }) => {
                 </FormItem>
               )}
             />
-            
+
             <FormField
               control={applicationForm.control}
               name="coverLetter"
@@ -163,7 +164,7 @@ const ApplicationModal = ({ isOpen, setIsOpen, selectedJob, toast }) => {
                 <FormItem>
                   <FormLabel>Cover Letter</FormLabel>
                   <FormControl>
-                    <Textarea 
+                    <Textarea
                       placeholder="Tell us why you're interested in this position and what makes you a great fit..."
                       className="h-32"
                       {...field}
@@ -173,7 +174,7 @@ const ApplicationModal = ({ isOpen, setIsOpen, selectedJob, toast }) => {
                 </FormItem>
               )}
             />
-            
+
             <div className="flex justify-end space-x-2 pt-2">
               <Button type="button" variant="outline" onClick={() => setIsOpen(false)} disabled={isSubmitting}>
                 Cancel

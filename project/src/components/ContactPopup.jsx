@@ -47,13 +47,13 @@ const ContactPopup = ({ open, onOpenChange }) => {
     setIsSubmitting(true);
     
     try {
-      const formattedMessage = `Name: ${name}\nPhone Number: ${phone}\n\nMessage: ${message || "No message provided"}`;
+      const formattedMessage = `Contact Form Inquiry\nName: ${name}\nPhone Number: ${phone}\n\nMessage: ${message || "No message provided"}`;
       
       const templateParams = {
         from_name: name,
         phone_number: phone,
         message: formattedMessage,
-        to_email: "devanshsehgal51@gmail.com",
+        to_email: "Info@inexterpsolutions.com",
       };
 
       await emailjs.send(

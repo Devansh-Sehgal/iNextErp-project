@@ -50,7 +50,7 @@ const Contact = () => {
         from_name: formData.name,
         phone_number: formData.phone,
         message: formattedMessage,
-        to_email: "sales@inexterpsolutions.com",
+        to_email: "Info@inexterpsolutions.com",
       };
 
       await emailjs.send(
