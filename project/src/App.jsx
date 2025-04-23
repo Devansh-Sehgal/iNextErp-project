@@ -1,3 +1,5 @@
+import React from 'react';
+import { useLocation } from 'react-router-dom';
 import { useState, useEffect, lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -24,8 +26,6 @@ import LabelProduct from "./pages/products/LabelProduct";
 import PrinterProduct from "./pages/products/PrinterProduct";
 import ReceiptPrinterProduct from "./pages/products/ReceiptPrinterProduct";
 import ScannerProduct from "./pages/products/ScannerProduct";
-
-// Solution pages
 import FashionDistribution from "./pages/solutions/FashionDistribution";
 import LifestyleBrands from "./pages/solutions/LifestyleBrands";
 import FashionRetail from "./pages/solutions/FashionRetail";
@@ -33,8 +33,8 @@ import D2CBrands from "./pages/solutions/D2CBrands";
 import WarehouseManagement from "./pages/solutions/WarehouseManagement";
 import MultiLocation from "./pages/solutions/MultiLocation";
 import CareerDetail from "./pages/CareerDetail.jsx";
+import Support from "./pages/Support";
 
-// Use lazy loading for service pages to improve performance
 const InventoryService = lazy(() => import("./pages/services/InventoryService.jsx"));
 const POSService = lazy(() => import("./pages/services/POSService.jsx"));
 const SupplyChainService = lazy(() => import("./pages/services/SupplyChainService.jsx"));
@@ -46,12 +46,10 @@ const HRMService = lazy(() => import("./pages/services/HRMService.jsx"));
 const CRMService = lazy(() => import("./pages/services/CRMService.jsx"));
 const ManufacturingService = lazy(() => import("./pages/services/ManufacturingService.jsx"));
 
-// Initialize EmailJS
 emailjs.init("r2V1JFhGvzvEJjBL0");
 
-// Define shared ScrollToTop component
 const ScrollToTop = ({ children }) => {
-  const { pathname } = window.location;
+  const { pathname } = useLocation();
   
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -76,7 +74,6 @@ const App = () => {
   const [showContactPopup, setShowContactPopup] = useState(false);
 
   useEffect(() => {
-    // Start prefetching lazy-loaded service pages
     const prefetchServices = async () => {
       const services = [
         import("./pages/services/InventoryService.jsx"),
@@ -94,19 +91,16 @@ const App = () => {
       await Promise.all(services);
     };
 
-    // Prefetch after initial render
     setTimeout(() => {
       prefetchServices();
     }, 2000);
 
-    // Show loading animation briefly only on main page
     if (window.location.pathname === "/") {
       setTimeout(() => setLoading(false), 1200);
     } else {
       setLoading(false);
     }
 
-    // Show contact popup after 5 seconds, but only on the main page
     const timer = setTimeout(() => {
       if (window.location.pathname === "/") {
         setShowContactPopup(true);
@@ -135,12 +129,12 @@ const App = () => {
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/blog" element={<Blog />} />
+                <Route path="/support" element={<Support />} />
                 <Route path="/blog/:id" element={<BlogDetail />} />
                 <Route path="/terms" element={<TermsConditions />} />
                 <Route path="/privacy" element={<PrivacyPolicy />} />
                 <Route path="/careers" element={<Career />} />
                 <Route path="/careers/:id" element={<CareerDetail />} />
-                {/* Service Routes */}
                 <Route path="/services/inventory" element={
                   <Suspense fallback={<LoadingAnimation />}>
                     <InventoryService />
@@ -192,7 +186,6 @@ const App = () => {
                   </Suspense>
                 } />
                 
-                {/* Product Routes */}
                 <Route path="/products/computer" element={<ComputerProduct />} />
                 <Route path="/products/barcode" element={<BarcodeProduct />} />
                 <Route path="/products/label" element={<LabelProduct />} />
@@ -200,7 +193,6 @@ const App = () => {
                 <Route path="/products/receipt-printer" element={<ReceiptPrinterProduct />} />
                 <Route path="/products/scanner" element={<ScannerProduct />} />
                 
-                {/* Solutions Routes */}
                 <Route path="/solutions/fashion-distribution" element={<FashionDistribution />} />
                 <Route path="/solutions/lifestyle-brands" element={<LifestyleBrands />} />
                 <Route path="/solutions/fashion-retail" element={<FashionRetail />} />
