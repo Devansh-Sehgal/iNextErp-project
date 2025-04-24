@@ -33,13 +33,13 @@ const ClientsSection = () => {
       logo: "/Clients/UTSAV.webp",
       description: "Celebration wear retailer offering festive clothing and accessories for all occasions.",
       industry: "Fashion Retail"
-    },
-    {
-      name: "Neha Saree",
-      logo: "/Clients/nehasareemzf.webp",
-      description: "Boutique saree shop with a curated collection of designer and handcrafted sarees.",
-      industry: "Fashion Retail"
-    }
+    // },
+    // {
+    //   name: "Neha Saree",
+    //   logo: "/Clients/nehasareemzf.webp",
+    //   description: "Boutique saree shop with a curated collection of designer and handcrafted sarees.",
+    //   industry: "Fashion Retail"
+    // }
   ];
 
   return (
